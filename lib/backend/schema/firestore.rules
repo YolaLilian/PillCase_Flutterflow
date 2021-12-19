@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function userDoc() {
+      return /databases/$(database)/documents/users_collection/$(request.auth.uid);
+    }
+
+    match /users_collection/{userId} {
+      allow read: if true;
+      allow create, update: if request.auth.uid == userId;
+    }
+  }
+}

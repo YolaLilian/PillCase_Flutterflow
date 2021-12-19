@@ -30,6 +30,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                  child: Text(
+                    'HALLO',
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Poppins',
+                      fontSize: 50,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

@@ -1,7 +1,9 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_page/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,17 +15,17 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
-  bool passwordVisibility;
+  TextEditingController emailloginController;
+  TextEditingController loginPasswordController;
+  bool loginPasswordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    passwordVisibility = false;
+    emailloginController = TextEditingController();
+    loginPasswordController = TextEditingController();
+    loginPasswordVisibility = false;
   }
 
   @override
@@ -129,7 +131,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                     child: TextFormField(
-                      controller: textController1,
+                      controller: emailloginController,
                       obscureText: false,
                       decoration: InputDecoration(
                         hintText: '  E-mail...',
@@ -187,8 +189,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                     child: TextFormField(
-                      controller: textController2,
-                      obscureText: !passwordVisibility,
+                      controller: loginPasswordController,
+                      obscureText: !loginPasswordVisibility,
                       decoration: InputDecoration(
                         hintText: '  Wachtwoord....',
                         hintStyle: FlutterFlowTheme.bodyText1,
@@ -214,10 +216,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         suffixIcon: InkWell(
                           onTap: () => setState(
-                            () => passwordVisibility = !passwordVisibility,
+                            () => loginPasswordVisibility =
+                                !loginPasswordVisibility,
                           ),
                           child: Icon(
-                            passwordVisibility
+                            loginPasswordVisibility
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined,
                             color: Color(0xFF757575),
@@ -242,8 +245,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                       color: FlutterFlowTheme.tertiaryColor,
                     ),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        final user = await signInWithEmail(
+                          context,
+                          emailloginController.text,
+                          loginPasswordController.text,
+                        );
+                        if (user == null) {
+                          return;
+                        }
+
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePageWidget(),
+                          ),
+                          (r) => false,
+                        );
                       },
                       text: 'LOG IN',
                       options: FFButtonOptions(

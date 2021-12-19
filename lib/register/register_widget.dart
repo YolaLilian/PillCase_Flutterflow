@@ -1,6 +1,8 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_page/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,15 +14,21 @@ class RegisterWidget extends StatefulWidget {
 }
 
 class _RegisterWidgetState extends State<RegisterWidget> {
-  TextEditingController textController1;
-  TextEditingController textController2;
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  bool passwordVisibility;
+  TextEditingController repeatPasswordController;
+  bool repeatPasswordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordVisibility = false;
+    repeatPasswordController = TextEditingController();
+    repeatPasswordVisibility = false;
   }
 
   @override
@@ -92,7 +100,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                     child: TextFormField(
-                      controller: textController1,
+                      controller: emailController,
                       obscureText: false,
                       decoration: InputDecoration(
                         hintText: '  E-mail...',
@@ -150,8 +158,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                     child: TextFormField(
-                      controller: textController2,
-                      obscureText: false,
+                      controller: passwordController,
+                      obscureText: !passwordVisibility,
                       decoration: InputDecoration(
                         hintText: '  Wachtwoord...',
                         hintStyle: FlutterFlowTheme.bodyText1,
@@ -175,12 +183,96 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             topRight: Radius.circular(4.0),
                           ),
                         ),
+                        suffixIcon: InkWell(
+                          onTap: () => setState(
+                            () => passwordVisibility = !passwordVisibility,
+                          ),
+                          child: Icon(
+                            passwordVisibility
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Color(0xFF757575),
+                            size: 22,
+                          ),
+                        ),
                       ),
                       style: FlutterFlowTheme.bodyText1,
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.95,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-1, 0),
+                    child: Text(
+                      'Herhaal Wachtwoord',
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Roboto',
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    child: TextFormField(
+                      controller: repeatPasswordController,
+                      obscureText: !repeatPasswordVisibility,
+                      decoration: InputDecoration(
+                        hintText: '  Wachtwoord...',
+                        hintStyle: FlutterFlowTheme.bodyText1,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () => setState(
+                            () => repeatPasswordVisibility =
+                                !repeatPasswordVisibility,
+                          ),
+                          child: Icon(
+                            repeatPasswordVisibility
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Color(0xFF757575),
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                      style: FlutterFlowTheme.bodyText1,
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
                     height: 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -194,8 +286,35 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       shape: BoxShape.rectangle,
                     ),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        if (passwordController.text !=
+                            repeatPasswordController.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Passwords don't match!",
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+
+                        final user = await createAccountWithEmail(
+                          context,
+                          emailController.text,
+                          passwordController.text,
+                        );
+                        if (user == null) {
+                          return;
+                        }
+
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePageWidget(),
+                          ),
+                          (r) => false,
+                        );
                       },
                       text: 'MAAK ACCOUNT',
                       options: FFButtonOptions(
