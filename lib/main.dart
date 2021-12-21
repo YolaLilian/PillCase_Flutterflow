@@ -6,13 +6,17 @@ import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:pilly_case/register/register_widget.dart';
-import 'package:pilly_case/home_page/home_page_widget.dart';
+import 'package:pilly_case/start_screen/start_screen_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
+import 'home_page/home_page_widget.dart';
+import 'calendar/calendar_widget.dart';
+import 'compartments/compartments_widget.dart';
+import 'settings/settings_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -66,8 +70,85 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           : currentUser.loggedIn
-              ? HomePageWidget()
-              : RegisterWidget(),
+              ? NavBarPage()
+              : StartScreenWidget(),
+    );
+  }
+}
+
+class NavBarPage extends StatefulWidget {
+  NavBarPage({Key key, this.initialPage}) : super(key: key);
+
+  final String initialPage;
+
+  @override
+  _NavBarPageState createState() => _NavBarPageState();
+}
+
+/// This is the private State class that goes with NavBarPage.
+class _NavBarPageState extends State<NavBarPage> {
+  String _currentPage = 'HomePage';
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPage = widget.initialPage ?? _currentPage;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tabs = {
+      'HomePage': HomePageWidget(),
+      'Calendar': CalendarWidget(),
+      'Compartments': CompartmentsWidget(),
+      'Settings': SettingsWidget(),
+    };
+    return Scaffold(
+      body: tabs[_currentPage],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              size: 28,
+            ),
+            label: 'Home',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.calendar_today,
+              size: 28,
+            ),
+            label: 'Calendar',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.local_hospital,
+              size: 28,
+            ),
+            label: 'Compartments',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+              size: 28,
+            ),
+            label: 'Settings',
+            tooltip: '',
+          )
+        ],
+        backgroundColor: Colors.white,
+        currentIndex: tabs.keys.toList().indexOf(_currentPage),
+        selectedItemColor: Color(0xFF54D6FF),
+        unselectedItemColor: Color(0xFF5F5F5F),
+        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+      ),
     );
   }
 }

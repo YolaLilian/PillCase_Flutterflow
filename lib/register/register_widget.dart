@@ -1,8 +1,11 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../home_page/home_page_widget.dart';
+import '../login/login_widget.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +18,7 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidgetState extends State<RegisterWidget> {
   TextEditingController emailController;
+  TextEditingController nameController;
   TextEditingController passwordController;
   bool passwordVisibility;
   TextEditingController repeatPasswordController;
@@ -25,6 +29,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   void initState() {
     super.initState();
     emailController = TextEditingController();
+    nameController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
     repeatPasswordController = TextEditingController();
@@ -45,237 +50,334 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              'Maak Account',
-              style: FlutterFlowTheme.title1.override(
-                fontFamily: 'Poppins',
-                color: Colors.black,
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  buttonSize: 60,
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    print('IconButton pressed ...');
+                  },
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 60),
+                    child: Text(
+                      'Maak account',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.black,
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.9,
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Email',
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    child: TextFormField(
-                      controller: emailController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: '  E-mail...',
-                        hintStyle: FlutterFlowTheme.bodyText1,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Naam',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                      style: FlutterFlowTheme.bodyText1,
-                    ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Wachtwoord',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: nameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Naam...',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        ),
+                        style: FlutterFlowTheme.bodyText1,
                       ),
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    child: TextFormField(
-                      controller: passwordController,
-                      obscureText: !passwordVisibility,
-                      decoration: InputDecoration(
-                        hintText: '  Wachtwoord...',
-                        hintStyle: FlutterFlowTheme.bodyText1,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () => setState(
-                            () => passwordVisibility = !passwordVisibility,
-                          ),
-                          child: Icon(
-                            passwordVisibility
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Color(0xFF757575),
-                            size: 22,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Email',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                      style: FlutterFlowTheme.bodyText1,
-                    ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Herhaal Wachtwoord',
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: emailController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'E-mail...',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        ),
+                        style: FlutterFlowTheme.bodyText1,
                       ),
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    child: TextFormField(
-                      controller: repeatPasswordController,
-                      obscureText: !repeatPasswordVisibility,
-                      decoration: InputDecoration(
-                        hintText: '  Wachtwoord...',
-                        hintStyle: FlutterFlowTheme.bodyText1,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0),
-                          ),
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () => setState(
-                            () => repeatPasswordVisibility =
-                                !repeatPasswordVisibility,
-                          ),
-                          child: Icon(
-                            repeatPasswordVisibility
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Color(0xFF757575),
-                            size: 22,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Wachtwoord',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                      style: FlutterFlowTheme.bodyText1,
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: passwordController,
+                        obscureText: !passwordVisibility,
+                        decoration: InputDecoration(
+                          hintText: 'Wachtwoord...',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          suffixIcon: InkWell(
+                            onTap: () => setState(
+                              () => passwordVisibility = !passwordVisibility,
+                            ),
+                            child: Icon(
+                              passwordVisibility
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Color(0xFF757575),
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                        style: FlutterFlowTheme.bodyText1,
+                      ),
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Herhaal Wachtwoord',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      child: TextFormField(
+                        controller: repeatPasswordController,
+                        obscureText: !repeatPasswordVisibility,
+                        decoration: InputDecoration(
+                          hintText: 'Wachtwoord...',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          suffixIcon: InkWell(
+                            onTap: () => setState(
+                              () => repeatPasswordVisibility =
+                                  !repeatPasswordVisibility,
+                            ),
+                            child: Icon(
+                              repeatPasswordVisibility
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Color(0xFF757575),
+                              size: 22,
+                            ),
+                          ),
+                        ),
+                        style: FlutterFlowTheme.bodyText1,
+                      ),
                     ),
                   ),
                   Container(
@@ -308,10 +410,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           return;
                         }
 
+                        final usersCreateData = createUsersRecordData(
+                          displayName: nameController.text,
+                        );
+                        await UsersRecord.collection
+                            .doc(user.uid)
+                            .update(usersCreateData);
+
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePageWidget(),
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'HomePage'),
                           ),
                           (r) => false,
                         );
@@ -342,12 +452,27 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                         color: Colors.black,
+                        fontSize: 16,
                       ),
                     ),
                   ),
-                  Text(
-                    'Klik dan hier om in te loggen',
-                    style: FlutterFlowTheme.bodyText1,
+                  InkWell(
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginWidget(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Klik dan hier om in te loggen',
+                      style: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Color(0xFF54D6FF),
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ],
               ),

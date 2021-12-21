@@ -147,20 +147,20 @@ Future verifySmsCode({
 }
 
 DocumentReference get currentUserReference => currentUser?.user != null
-    ? UsersCollectionRecord.collection.doc(currentUser.user.uid)
+    ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;
 
-UsersCollectionRecord currentUserDocument;
+UsersRecord currentUserDocument;
 final authenticatedUserStream = FirebaseAuth.instance
     .authStateChanges()
     .map<String>((user) {
       // Store jwt token on user update.
       () async {
-        _currentJwtToken = await user.getIdToken();
+        _currentJwtToken = await user?.getIdToken();
       }();
       return user?.uid ?? '';
     })
-    .switchMap((uid) => queryUsersCollectionRecord(
+    .switchMap((uid) => queryUsersRecord(
         queryBuilder: (user) => user.where('uid', isEqualTo: uid),
         singleRecord: true))
     .map((users) => currentUserDocument = users.isNotEmpty ? users.first : null)

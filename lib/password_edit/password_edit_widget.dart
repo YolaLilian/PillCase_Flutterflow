@@ -46,67 +46,46 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              width: 100,
-              height: 50,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.tertiaryColor,
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30,
-                  borderWidth: 1,
-                  buttonSize: 60,
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    print('IconButton pressed ...');
-                  },
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.18,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Verander',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 60),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30,
+                    borderWidth: 1,
+                    buttonSize: 60,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 30,
                     ),
-                    Text(
-                      'Wachtwoord',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              ],
-            ),
-            Container(
-              width: 100,
-              height: 50,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.tertiaryColor,
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Verander\nwachtwoord',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.title1.override(
+                          fontFamily: 'Poppins',
+                          fontSize: 36,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Container(
@@ -118,21 +97,30 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Huidig Wachtwoord',
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Huidig Wachtwoord',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 40,
@@ -146,7 +134,7 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                         controller: textController1,
                         obscureText: !passwordVisibility1,
                         decoration: InputDecoration(
-                          hintText: '  Huidig Wachtwoord...',
+                          hintText: 'Huidig Wachtwoord...',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Roboto',
                             color: Color(0xFF4F4F4F),
@@ -173,6 +161,8 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                           suffixIcon: InkWell(
                             onTap: () => setState(
                               () => passwordVisibility1 = !passwordVisibility1,
@@ -195,27 +185,28 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.tertiaryColor,
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Nieuw Wachtwoord',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Nieuw Wachtwoord',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 40,
@@ -229,7 +220,7 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                         controller: textController2,
                         obscureText: !passwordVisibility2,
                         decoration: InputDecoration(
-                          hintText: '  Nieuw Wachtwoord...',
+                          hintText: 'Nieuw Wachtwoord...',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Roboto',
                             color: Color(0xFF4F4F4F),
@@ -256,6 +247,8 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                           suffixIcon: InkWell(
                             onTap: () => setState(
                               () => passwordVisibility2 = !passwordVisibility2,
@@ -278,27 +271,28 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.tertiaryColor,
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-1, 0),
-                    child: Text(
-                      'Herhaal Nieuw Wachtwoord',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Roboto',
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+                          child: Text(
+                            'Herhaal Nieuw Wachtwoord',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 40,
@@ -312,7 +306,7 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                         controller: textController3,
                         obscureText: !passwordVisibility3,
                         decoration: InputDecoration(
-                          hintText: '  Nieuw Wachtwoord...',
+                          hintText: 'Nieuw Wachtwoord...',
                           hintStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Roboto',
                             color: Color(0xFF4F4F4F),
@@ -339,6 +333,8 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                           suffixIcon: InkWell(
                             onTap: () => setState(
                               () => passwordVisibility3 = !passwordVisibility3,
@@ -360,11 +356,6 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.95,
