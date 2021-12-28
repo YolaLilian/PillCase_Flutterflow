@@ -243,7 +243,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       onConfirm: (date) {
                                         setState(() => datePicked = date);
                                       },
-                                      currentTime: widget.time.time,
+                                      currentTime: widget.time.plannedDate,
                                     );
                                   },
                                   child: Container(
@@ -281,7 +281,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                       final compartmentsUpdateData =
                           createCompartmentsRecordData(
                         name: textController.text,
-                        time: datePicked,
+                        plannedDate: datePicked,
                       );
                       await widget.name.reference
                           .update(compartmentsUpdateData);

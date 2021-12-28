@@ -65,8 +65,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     color: Colors.black,
                     size: 30,
                   ),
-                  onPressed: () {
-                    print('IconButton pressed ...');
+                  onPressed: () async {
+                    Navigator.pop(context);
                   },
                 ),
                 Align(

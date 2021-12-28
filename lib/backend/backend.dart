@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
 
-import 'schema/planned_dates_record.dart';
 import 'schema/users_record.dart';
 import 'schema/compartments_record.dart';
 import 'schema/pills_record.dart';
@@ -14,18 +13,9 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 export 'schema/index.dart';
 export 'schema/serializers.dart';
 
-export 'schema/planned_dates_record.dart';
 export 'schema/users_record.dart';
 export 'schema/compartments_record.dart';
 export 'schema/pills_record.dart';
-
-Stream<List<PlannedDatesRecord>> queryPlannedDatesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        PlannedDatesRecord.collection, PlannedDatesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,

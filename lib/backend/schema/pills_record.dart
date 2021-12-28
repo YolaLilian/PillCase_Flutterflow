@@ -13,15 +13,18 @@ abstract class PillsRecord implements Built<PillsRecord, PillsRecordBuilder> {
   String get name;
 
   @nullable
-  @BuiltValueField(wireName: 'compartment_reference')
-  DocumentReference get compartmentReference;
+  BuiltList<DocumentReference> get users;
+
+  @nullable
+  DocumentReference get user;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(PillsRecordBuilder builder) =>
-      builder..name = '';
+  static void _initializeBuilder(PillsRecordBuilder builder) => builder
+    ..name = ''
+    ..users = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('pills');
@@ -42,10 +45,11 @@ abstract class PillsRecord implements Built<PillsRecord, PillsRecordBuilder> {
 
 Map<String, dynamic> createPillsRecordData({
   String name,
-  DocumentReference compartmentReference,
+  DocumentReference user,
 }) =>
     serializers.toFirestore(
         PillsRecord.serializer,
         PillsRecord((p) => p
           ..name = name
-          ..compartmentReference = compartmentReference));
+          ..users = null
+          ..user = user));

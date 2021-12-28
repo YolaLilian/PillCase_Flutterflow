@@ -60,8 +60,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       color: Colors.black,
                       size: 30,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
+                    onPressed: () async {
+                      Navigator.pop(context);
                     },
                   ),
                   Container(

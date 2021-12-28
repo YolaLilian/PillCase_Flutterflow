@@ -12,33 +12,33 @@ abstract class CompartmentsRecord
       _$compartmentsRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'planned_date_reference')
-  DocumentReference get plannedDateReference;
+  String get name;
 
   @nullable
   int get index;
 
   @nullable
+  @BuiltValueField(wireName: 'planned_date')
+  DateTime get plannedDate;
+
+  @nullable
+  BuiltList<DocumentReference> get users;
+
+  @nullable
+  DocumentReference get user;
+
+  @nullable
   BuiltList<DocumentReference> get pills;
-
-  @nullable
-  String get status;
-
-  @nullable
-  DateTime get time;
-
-  @nullable
-  String get name;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CompartmentsRecordBuilder builder) => builder
+    ..name = ''
     ..index = 0
-    ..pills = ListBuilder()
-    ..status = ''
-    ..name = '';
+    ..users = ListBuilder()
+    ..pills = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('compartments');
@@ -59,18 +59,17 @@ abstract class CompartmentsRecord
 }
 
 Map<String, dynamic> createCompartmentsRecordData({
-  DocumentReference plannedDateReference,
-  int index,
-  String status,
-  DateTime time,
   String name,
+  int index,
+  DateTime plannedDate,
+  DocumentReference user,
 }) =>
     serializers.toFirestore(
         CompartmentsRecord.serializer,
         CompartmentsRecord((c) => c
-          ..plannedDateReference = plannedDateReference
+          ..name = name
           ..index = index
-          ..pills = null
-          ..status = status
-          ..time = time
-          ..name = name));
+          ..plannedDate = plannedDate
+          ..users = null
+          ..user = user
+          ..pills = null));

@@ -4,6 +4,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -75,7 +76,14 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
                                 alignment: AlignmentDirectional(0, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    Navigator.pop(context);
+                                    await Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => NavBarPage(
+                                            initialPage: 'Compartments'),
+                                      ),
+                                      (r) => false,
+                                    );
                                   },
                                   child: Icon(
                                     Icons.close,
@@ -278,7 +286,8 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
                       final compartmentsCreateData =
                           createCompartmentsRecordData(
                         name: textController.text,
-                        time: datePicked,
+                        plannedDate: datePicked,
+                        user: currentUserReference,
                       );
                       await CompartmentsRecord.collection
                           .doc()

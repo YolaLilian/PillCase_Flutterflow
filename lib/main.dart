@@ -8,9 +8,9 @@ import 'auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:pilly_case/start_screen/start_screen_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
-import 'home_page/home_page_widget.dart';
 import 'calendar/calendar_widget.dart';
 import 'compartments/compartments_widget.dart';
+import 'home_page/home_page_widget.dart';
 import 'settings/settings_widget.dart';
 
 void main() async {
@@ -98,23 +98,15 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomePage': HomePageWidget(),
       'Calendar': CalendarWidget(),
       'Compartments': CompartmentsWidget(),
+      'HomePage': HomePageWidget(),
       'Settings': SettingsWidget(),
     };
     return Scaffold(
       body: tabs[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 28,
-            ),
-            label: 'Home',
-            tooltip: '',
-          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.calendar_today,
@@ -129,6 +121,14 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 28,
             ),
             label: 'Compartments',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home_rounded,
+              size: 28,
+            ),
+            label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
