@@ -33,6 +33,10 @@ abstract class PillsRecord implements Built<PillsRecord, PillsRecordBuilder> {
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<PillsRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   PillsRecord._();
   factory PillsRecord([void Function(PillsRecordBuilder) updates]) =
       _$PillsRecord;

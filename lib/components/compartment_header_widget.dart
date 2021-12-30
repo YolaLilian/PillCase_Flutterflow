@@ -6,14 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 class CompartmentHeaderWidget extends StatefulWidget {
   const CompartmentHeaderWidget({
     Key key,
-    this.compartmentName,
-    this.compartmentTime,
-    this.compartmentIcon,
+    this.compartementName,
+    this.compartementTime,
   }) : super(key: key);
 
-  final String compartmentName;
-  final String compartmentTime;
-  final Widget compartmentIcon;
+  final String compartementName;
+  final String compartementTime;
 
   @override
   _CompartmentHeaderWidgetState createState() =>
@@ -23,23 +21,23 @@ class CompartmentHeaderWidget extends StatefulWidget {
 class _CompartmentHeaderWidgetState extends State<CompartmentHeaderWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Compartement name',
-          style: FlutterFlowTheme.bodyText1,
+          widget.compartementName,
+          style: FlutterFlowTheme.bodyText1.override(
+            fontFamily: 'Poppins',
+            fontSize: 24,
+          ),
         ),
         Text(
-          'Hello World',
-          style: FlutterFlowTheme.bodyText1,
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(38, 0, 0, 0),
-          child: Icon(
-            Icons.settings_outlined,
-            color: Colors.black,
-            size: 24,
+          widget.compartementTime,
+          style: FlutterFlowTheme.bodyText1.override(
+            fontFamily: 'Poppins',
+            fontSize: 22,
           ),
         ),
       ],

@@ -1,23 +1,23 @@
-import '../added_compartment/added_compartment_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../compartment3/compartment3_widget.dart';
+import '../components/add_pill_modal_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddCompartmentWidget extends StatefulWidget {
-  const AddCompartmentWidget({Key key}) : super(key: key);
+class Compartment2Widget extends StatefulWidget {
+  const Compartment2Widget({Key key}) : super(key: key);
 
   @override
-  _AddCompartmentWidgetState createState() => _AddCompartmentWidgetState();
+  _Compartment2WidgetState createState() => _Compartment2WidgetState();
 }
 
-class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
+class _Compartment2WidgetState extends State<Compartment2Widget> {
   DateTime datePicked;
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -46,54 +46,26 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 30),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Compartement\ntoevoegen',
-                              style: FlutterFlowTheme.title1,
+                              'Compartement 2',
+                              style: FlutterFlowTheme.title1.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 36,
+                              ),
                             ),
                           ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NavBarPage(
-                                            initialPage: 'Compartments'),
-                                      ),
-                                      (r) => false,
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.close,
-                                    color: Colors.black,
-                                    size: 40,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ],
@@ -158,7 +130,7 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
                                     controller: textController,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      hintText: 'Naam compartement',
+                                      hintText: 'Naam compartement 2',
                                       hintStyle: FlutterFlowTheme.bodyText1,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -280,14 +252,96 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
                   ),
                 ),
                 Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.85,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                  ),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Text(
+                                      'Deze gegevens kunnen later aangepast worden',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF5F5F5F),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: MediaQuery.of(context).viewInsets,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              child: AddPillModalWidget(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    text: 'Voeg pil toe',
+                    options: FFButtonOptions(
+                      width: 130,
+                      height: 40,
+                      color: FlutterFlowTheme.primaryColor,
+                      textStyle: FlutterFlowTheme.subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: 12,
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       final compartmentsCreateData =
                           createCompartmentsRecordData(
-                        name: textController.text,
+                        name: valueOrDefault<String>(
+                          textController.text,
+                          'Compartement 2',
+                        ),
                         plannedDate: datePicked,
                         user: currentUserReference,
+                        index: 1,
                       );
                       await CompartmentsRecord.collection
                           .doc()
@@ -295,7 +349,7 @@ class _AddCompartmentWidgetState extends State<AddCompartmentWidget> {
                       await Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AddedCompartmentWidget(),
+                          builder: (context) => Compartment3Widget(),
                         ),
                         (r) => false,
                       );

@@ -54,6 +54,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<UsersRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   UsersRecord._();
   factory UsersRecord([void Function(UsersRecordBuilder) updates]) =
       _$UsersRecord;

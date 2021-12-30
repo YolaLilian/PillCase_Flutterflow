@@ -1,6 +1,6 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/compartment_header_widget.dart';
-import '../components/empty_pill_list_widget.dart';
 import '../components/pill_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -22,23 +22,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          print('FloatingActionButton pressed ...');
-        },
-        backgroundColor: Color(0xFF00D43B),
-        icon: Icon(
-          Icons.add,
-        ),
-        elevation: 8,
-        label: Text(
-          'Voeg pil toe',
-          style: FlutterFlowTheme.bodyText1.override(
-            fontFamily: 'Poppins',
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(18, 0, 18, 0),
         child: Column(
@@ -60,7 +43,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(18, 18, 18, 0),
                 child: StreamBuilder<List<CompartmentsRecord>>(
-                  stream: queryCompartmentsRecord(),
+                  stream: queryCompartmentsRecord(
+                    queryBuilder: (compartmentsRecord) => compartmentsRecord
+                        .where('user', isEqualTo: currentUserReference),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -76,14 +62,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     }
                     List<CompartmentsRecord> listViewCompartmentsRecordList =
                         snapshot.data;
-                    if (listViewCompartmentsRecordList.isEmpty) {
-                      return Center(
-                        child: Container(
-                          height: 45,
-                          child: EmptyPillListWidget(),
-                        ),
-                      );
-                    }
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -94,11 +72,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         return Stack(
                           children: [
                             CompartmentHeaderWidget(
-                              compartmentName: 'PlaceHolder',
-                              compartmentTime: 'PlaceHolder',
-                              compartmentIcon: Icon(
-                                Icons.threesixty_sharp,
-                              ),
+                              compartementName: listViewCompartmentsRecord.name,
+                              compartementTime: listViewCompartmentsRecord
+                                  .plannedDate
+                                  .toString(),
                             ),
                             Align(
                               alignment: AlignmentDirectional(0, 0),
@@ -107,18 +84,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 36, 0, 8),
-                                    child: PillWidget(
-                                      compartmentName: 'placeholder',
-                                      compartmentTime: 'placeholder',
-                                      compartmentIcon: Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.secondaryColor,
-                                        size: 23,
+                                  Align(
+                                    alignment: AlignmentDirectional(-0.05, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 68, 0, 42),
+                                      child: PillWidget(
+                                        pillName: '',
                                       ),
-                                      pillName: 'placeholder',
                                     ),
                                   ),
                                 ],

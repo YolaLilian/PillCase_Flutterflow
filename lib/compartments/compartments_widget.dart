@@ -1,4 +1,3 @@
-import '../add_compartment/add_compartment_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../edit_compartment/edit_compartment_widget.dart';
@@ -23,25 +22,6 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddCompartmentWidget(),
-            ),
-          );
-        },
-        backgroundColor: FlutterFlowTheme.primaryColor,
-        elevation: 8,
-        child: Text(
-          'Add',
-          style: FlutterFlowTheme.bodyText1.override(
-            fontFamily: 'Poppins',
-            color: FlutterFlowTheme.tertiaryColor,
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -115,99 +95,107 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                         final listViewCompartmentsCompartmentsRecord =
                             listViewCompartmentsCompartmentsRecordList[
                                 listViewCompartmentsIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(30, 5, 30, 5),
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFFF1F1F1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: Column(
+                        return Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(30, 5, 30, 5),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0xFFF1F1F1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              listViewCompartmentsCompartmentsRecord
+                                                  .name
+                                                  .maybeHandleOverflow(
+                                                maxChars: 14,
+                                                replacement: '…',
+                                              ),
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.title3,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
-                                          Text(
-                                            listViewCompartmentsCompartmentsRecord
-                                                .name,
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.title3,
+                                          FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30,
+                                            borderWidth: 1,
+                                            buttonSize: 60,
+                                            icon: Icon(
+                                              Icons.edit_rounded,
+                                              color: Colors.black,
+                                              size: 30,
+                                            ),
+                                            onPressed: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditCompartmentWidget(
+                                                    index:
+                                                        listViewCompartmentsCompartmentsRecord
+                                                            .reference,
+                                                    time:
+                                                        listViewCompartmentsCompartmentsRecord,
+                                                    name:
+                                                        listViewCompartmentsCompartmentsRecord,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 30,
-                                          borderWidth: 1,
-                                          buttonSize: 60,
-                                          icon: Icon(
-                                            Icons.edit_rounded,
-                                            color: Colors.black,
-                                            size: 30,
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 20),
+                                        child: Text(
+                                          dateTimeFormat(
+                                              'Hm',
+                                              listViewCompartmentsCompartmentsRecord
+                                                  .plannedDate),
+                                          style: FlutterFlowTheme.bodyText1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF5F5F5F),
                                           ),
-                                          onPressed: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditCompartmentWidget(
-                                                  index:
-                                                      listViewCompartmentsCompartmentsRecord
-                                                          .reference,
-                                                  time:
-                                                      listViewCompartmentsCompartmentsRecord,
-                                                  name:
-                                                      listViewCompartmentsCompartmentsRecord,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 20),
-                                      child: Text(
-                                        dateTimeFormat(
-                                            'Hm',
-                                            listViewCompartmentsCompartmentsRecord
-                                                .plannedDate),
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF5F5F5F),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

@@ -295,7 +295,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ),
                   Text(
-                    'Klik dan hier om je wachtwoord te resetten',
+                    'Klik dahier om je wachtwoord te resetten',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.bodyText1.override(
                       fontFamily: 'Poppins',

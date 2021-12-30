@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "compartments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "user",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "planned_date",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}

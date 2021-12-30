@@ -47,6 +47,10 @@ abstract class CompartmentsRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<CompartmentsRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then(
+          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   CompartmentsRecord._();
   factory CompartmentsRecord(
           [void Function(CompartmentsRecordBuilder) updates]) =

@@ -34,7 +34,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         backgroundColor: FlutterFlowTheme.primaryColor,
         elevation: 8,
         child: Text(
-          'Log uit',
+          'Log\nuit',
           textAlign: TextAlign.start,
           style: FlutterFlowTheme.bodyText1.override(
             fontFamily: 'Poppins',
