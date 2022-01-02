@@ -2,31 +2,20 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/empty_compartment_list_widget.dart';
 import '../components/pill_card_widget.dart';
-import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CalendarWidget extends StatefulWidget {
-  const CalendarWidget({Key key}) : super(key: key);
+class HomepageWidget extends StatefulWidget {
+  const HomepageWidget({Key key}) : super(key: key);
 
   @override
-  _CalendarWidgetState createState() => _CalendarWidgetState();
+  _HomepageWidgetState createState() => _HomepageWidgetState();
 }
 
-class _CalendarWidgetState extends State<CalendarWidget> {
-  DateTimeRange calendarSelectedDay;
+class _HomepageWidgetState extends State<HomepageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    calendarSelectedDay = DateTimeRange(
-      start: DateTime.now().startOfDay,
-      end: DateTime.now().endOfDay,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,33 +35,29 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 30),
-                    child: FlutterFlowCalendar(
-                      color: FlutterFlowTheme.primaryColor,
-                      weekFormat: true,
-                      weekStartsMonday: true,
-                      initialDate: getCurrentTimestamp,
-                      onChange: (DateTimeRange newSelectedDate) {
-                        setState(() => calendarSelectedDay = newSelectedDate);
-                      },
-                      titleStyle: FlutterFlowTheme.subtitle1,
-                      dayOfWeekStyle: TextStyle(),
-                      dateStyle: TextStyle(),
-                      selectedDateStyle: TextStyle(),
-                      inactiveDateStyle: TextStyle(),
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0.05, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 20),
+                          child: Text(
+                            dateTimeFormat('MMMMEEEEd', getCurrentTimestamp),
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.title3,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
               StreamBuilder<List<CompartmentsRecord>>(
                 stream: queryCompartmentsRecord(
                   queryBuilder: (compartmentsRecord) => compartmentsRecord
-                      .where('user', isEqualTo: currentUserReference)
-                      .where('planned_date',
-                          isLessThan: calendarSelectedDay.end)
-                      .where('planned_date',
-                          isGreaterThan: calendarSelectedDay.start),
+                      .where('user', isEqualTo: currentUserReference),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.

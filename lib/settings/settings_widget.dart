@@ -1,5 +1,5 @@
-import '../add_compartments/add_compartments_widget.dart';
 import '../auth/auth_util.dart';
+import '../edit_medicin_link/edit_medicin_link_widget.dart';
 import '../email_edit/email_edit_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -23,18 +23,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddCompartmentsWidget(),
-            ),
-          );
-        },
-        backgroundColor: FlutterFlowTheme.primaryColor,
-        elevation: 8,
-      ),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -46,28 +34,37 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                child: Text(
-                  'Instellingen',
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Roboto',
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 30),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 30),
+                      child: Text(
+                        'Instellingen',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.title1.override(
+                          fontFamily: 'Poppins',
+                          fontSize: 36,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.tertiaryColor,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      InkWell(
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.5,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.tertiaryColor,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 30),
+                      child: InkWell(
                         onTap: () async {
                           await Navigator.push(
                             context,
@@ -78,17 +75,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                              child: Text(
-                                'Verander Email',
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            Text(
+                              'Verander email',
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Roboto',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             Padding(
@@ -103,96 +97,120 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 1,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                          ),
+                    ),
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: FlutterFlowTheme.dark,
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 30),
+                      child: InkWell(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PasswordEditWidget(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Verander wachtwoord',
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Roboto',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PasswordEditWidget(),
+                    ),
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: FlutterFlowTheme.dark,
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 30),
+                      child: InkWell(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditMedicinLinkWidget(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Koppeling \nmedicijndoos',
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Roboto',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                                child: Text(
-                                  'Verander Wachtwoord',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: FlutterFlowTheme.dark,
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          await signOut();
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => StartScreenWidget(),
+                            ),
+                            (r) => false,
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                              child: Text(
+                                'Log uit',
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Roboto',
+                                  color: Color(0xFFFF5A79),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.black,
-                                size: 24,
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 1,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await signOut();
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => StartScreenWidget(),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                                child: Text(
-                                  'Loguit',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFFFF5A79),
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

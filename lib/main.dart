@@ -10,7 +10,7 @@ import 'package:pilly_case/start_screen/start_screen_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'calendar/calendar_widget.dart';
 import 'compartments/compartments_widget.dart';
-import 'home_page/home_page_widget.dart';
+import 'homepage/homepage_widget.dart';
 import 'settings/settings_widget.dart';
 
 void main() async {
@@ -87,7 +87,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'HomePage';
+  String _currentPage = 'Homepage';
 
   @override
   void initState() {
@@ -100,7 +100,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'Calendar': CalendarWidget(),
       'Compartments': CompartmentsWidget(),
-      'HomePage': HomePageWidget(),
+      'Homepage': HomepageWidget(),
       'Settings': SettingsWidget(),
     };
     return Scaffold(

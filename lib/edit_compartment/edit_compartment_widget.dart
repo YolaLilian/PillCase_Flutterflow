@@ -293,12 +293,14 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                     },
                     text: 'Voeg pil toe',
                     options: FFButtonOptions(
-                      width: 130,
+                      width: 150,
                       height: 40,
                       color: FlutterFlowTheme.primaryColor,
                       textStyle: FlutterFlowTheme.subtitle2.override(
                         fontFamily: 'Poppins',
                         color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -336,6 +338,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         textStyle: FlutterFlowTheme.subtitle2.override(
                           fontFamily: 'Poppins',
                           color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                         borderSide: BorderSide(
                           color: Colors.transparent,

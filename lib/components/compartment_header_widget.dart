@@ -27,14 +27,20 @@ class _CompartmentHeaderWidgetState extends State<CompartmentHeaderWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.compartementName,
+          widget.compartementName.maybeHandleOverflow(
+            maxChars: 22,
+            replacement: '…',
+          ),
           style: FlutterFlowTheme.bodyText1.override(
             fontFamily: 'Poppins',
             fontSize: 24,
           ),
         ),
         Text(
-          widget.compartementTime,
+          widget.compartementTime.maybeHandleOverflow(
+            maxChars: 22,
+            replacement: '…',
+          ),
           style: FlutterFlowTheme.bodyText1.override(
             fontFamily: 'Poppins',
             fontSize: 22,

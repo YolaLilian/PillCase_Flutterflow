@@ -1,18 +1,22 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EmailEditWidget extends StatefulWidget {
-  const EmailEditWidget({Key key}) : super(key: key);
+class EditMedicinLinkWidget extends StatefulWidget {
+  const EditMedicinLinkWidget({Key key}) : super(key: key);
 
   @override
-  _EmailEditWidgetState createState() => _EmailEditWidgetState();
+  _EditMedicinLinkWidgetState createState() => _EditMedicinLinkWidgetState();
 }
 
-class _EmailEditWidgetState extends State<EmailEditWidget> {
+class _EditMedicinLinkWidgetState extends State<EditMedicinLinkWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -62,25 +66,15 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                         Navigator.pop(context);
                       },
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.02,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                          child: Text(
-                            'Verander\nEmail',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Poppins',
-                              fontSize: 36,
-                            ),
+                        Text(
+                          'Koppeling\nmedicijndoos',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.title1.override(
+                            fontFamily: 'Poppins',
+                            fontSize: 36,
                           ),
                         ),
                       ],
@@ -106,7 +100,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                             child: Text(
-                              'Huidig emailadres:',
+                              'Huidige medicijndooscode',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Roboto',
@@ -134,7 +128,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           controller: textController1,
                           obscureText: false,
                           decoration: InputDecoration(
-                            hintText: 'Huidig emailadres...',
+                            hintText: 'Huidige medicijndooscode...',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Roboto',
                               color: Color(0xFF4F4F4F),
@@ -182,7 +176,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                             child: Text(
-                              'Nieuw emailadres:',
+                              'Nieuwe medicijndooscode',
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
@@ -209,7 +203,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           controller: textController2,
                           obscureText: false,
                           decoration: InputDecoration(
-                            hintText: 'Nieuw emailadres...',
+                            hintText: 'Nieuwe medicijndooscode...',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Roboto',
                               color: Color(0xFF4F4F4F),
@@ -256,7 +250,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
                             child: Text(
-                              'Uw Wachtwoord:',
+                              'Uw wachtwoord:',
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Roboto',
                                 color: Colors.black,
@@ -283,7 +277,7 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           controller: textController3,
                           obscureText: !passwordVisibility,
                           decoration: InputDecoration(
-                            hintText: 'Huidige wachtwoord...',
+                            hintText: 'Huidig wachtwoord...',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Roboto',
                               color: Color(0xFF4F4F4F),
@@ -341,8 +335,19 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                         color: FlutterFlowTheme.tertiaryColor,
                       ),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          final usersUpdateData = createUsersRecordData(
+                            medicinboxCode: textController2.text,
+                          );
+                          await currentUserReference.update(usersUpdateData);
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'Settings'),
+                            ),
+                            (r) => false,
+                          );
                         },
                         text: 'Sla op',
                         options: FFButtonOptions(
