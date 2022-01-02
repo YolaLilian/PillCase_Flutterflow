@@ -12,6 +12,7 @@ import 'lat_lng.dart';
 
 export 'dart:math' show min, max;
 export 'package:intl/intl.dart';
+export 'package:cloud_firestore/cloud_firestore.dart' show DocumentReference;
 export 'package:page_transition/page_transition.dart';
 export 'lat_lng.dart';
 export 'place.dart';
@@ -123,14 +124,11 @@ extension DateTimeComparisonOperators on DateTime {
 
 dynamic getJsonField(dynamic response, String jsonPath) {
   final field = JsonPath(jsonPath).read(response);
-  // If the jsonPath contains ":" or "..", the result will be a list of items
-  // already unnested (no need to take only the first item).
-  final isList = jsonPath.contains(':') || jsonPath.contains('..');
-  return isList
-      ? field.map((f) => f.value).toList()
-      : field.length == 1
-          ? field.first.value
-          : null;
+  return field.isNotEmpty
+      ? field.length > 1
+          ? field.map((f) => f.value).toList()
+          : field.first.value
+      : null;
 }
 
 bool get isAndroid => !kIsWeb && Platform.isAndroid;

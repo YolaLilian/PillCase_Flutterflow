@@ -1,4 +1,4 @@
-# pilly_case
+# PillyCase
 
 A new Flutter project.
 

@@ -1,6 +1,6 @@
 {
-    "name": "pilly_case",
-    "short_name": "pilly_case",
+    "name": "PillyCase",
+    "short_name": "PillyCase",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
