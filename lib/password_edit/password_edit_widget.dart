@@ -76,12 +76,15 @@ class _PasswordEditWidgetState extends State<PasswordEditWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          'Verander\nwachtwoord',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Poppins',
-                            fontSize: 36,
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Verander\nwachtwoord',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.title1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 36,
+                            ),
                           ),
                         ),
                       ],

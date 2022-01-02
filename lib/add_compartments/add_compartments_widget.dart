@@ -861,11 +861,11 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController2.text,
-                                        'Compartement 1',
+                                        'Compartement 2',
                                       ),
                                       plannedDate: datePicked2,
                                       user: currentUserReference,
-                                      index: 0,
+                                      index: 1,
                                     );
                                     await CompartmentsRecord.collection
                                         .doc()
@@ -1276,11 +1276,11 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController3.text,
-                                        'Compartement 1',
+                                        'Compartement 3',
                                       ),
                                       plannedDate: datePicked3,
                                       user: currentUserReference,
-                                      index: 0,
+                                      index: 2,
                                     );
                                     await CompartmentsRecord.collection
                                         .doc()
@@ -1691,11 +1691,11 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController4.text,
-                                        'Compartement 1',
+                                        'Compartement 4',
                                       ),
                                       plannedDate: datePicked4,
                                       user: currentUserReference,
-                                      index: 0,
+                                      index: 3,
                                     );
                                     await CompartmentsRecord.collection
                                         .doc()
@@ -2106,11 +2106,11 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController5.text,
-                                        'Compartement 1',
+                                        'Compartement 5',
                                       ),
                                       plannedDate: datePicked5,
                                       user: currentUserReference,
-                                      index: 0,
+                                      index: 4,
                                     );
                                     await CompartmentsRecord.collection
                                         .doc()

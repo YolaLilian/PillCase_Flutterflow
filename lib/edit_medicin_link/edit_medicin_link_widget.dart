@@ -69,12 +69,15 @@ class _EditMedicinLinkWidgetState extends State<EditMedicinLinkWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          'Koppeling\nmedicijndoos',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Poppins',
-                            fontSize: 36,
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Koppeling\nmedicijndoos',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.title1.override(
+                              fontFamily: 'Poppins',
+                              fontSize: 36,
+                            ),
                           ),
                         ),
                       ],

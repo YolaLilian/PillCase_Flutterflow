@@ -72,14 +72,18 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                          child: Text(
-                            'Verander\nEmail',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Poppins',
-                              fontSize: 36,
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                            child: Text(
+                              'Verander\nEmail',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.title1.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 36,
+                              ),
                             ),
                           ),
                         ),
