@@ -39,7 +39,8 @@
 	<true/>
 
 
-
+	<key>NSCameraUsageDescription</key>
+	<string>In order to scan for barcodes and QR codes, this app requires permission to access the camera.</string>
 
 
 	<key>UILaunchStoryboardName</key>

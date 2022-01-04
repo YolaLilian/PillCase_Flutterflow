@@ -88,7 +88,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                         final listViewCompartmentsRecord =
                             listViewCompartmentsRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [

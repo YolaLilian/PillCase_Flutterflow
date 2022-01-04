@@ -408,7 +408,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.3,
+                                                0.4,
                                             child: AddPillModalWidget(),
                                           ),
                                         );
@@ -827,7 +827,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.3,
+                                                0.4,
                                             child: AddPillModalWidget(),
                                           ),
                                         );
@@ -836,13 +836,15 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                   },
                                   text: 'Voeg pil toe',
                                   options: FFButtonOptions(
-                                    width: 130,
+                                    width: 150,
                                     height: 40,
                                     color: FlutterFlowTheme.primaryColor,
                                     textStyle:
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -884,6 +886,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -1242,7 +1246,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.3,
+                                                0.4,
                                             child: AddPillModalWidget(),
                                           ),
                                         );
@@ -1251,13 +1255,15 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                   },
                                   text: 'Voeg pil toe',
                                   options: FFButtonOptions(
-                                    width: 130,
+                                    width: 150,
                                     height: 40,
                                     color: FlutterFlowTheme.primaryColor,
                                     textStyle:
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -1299,6 +1305,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -1657,7 +1665,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.3,
+                                                0.4,
                                             child: AddPillModalWidget(),
                                           ),
                                         );
@@ -1666,13 +1674,15 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                   },
                                   text: 'Voeg pil toe',
                                   options: FFButtonOptions(
-                                    width: 130,
+                                    width: 150,
                                     height: 40,
                                     color: FlutterFlowTheme.primaryColor,
                                     textStyle:
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -1714,6 +1724,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -2072,7 +2084,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.3,
+                                                0.4,
                                             child: AddPillModalWidget(),
                                           ),
                                         );
@@ -2081,13 +2093,15 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                   },
                                   text: 'Voeg pil toe',
                                   options: FFButtonOptions(
-                                    width: 130,
+                                    width: 150,
                                     height: 40,
                                     color: FlutterFlowTheme.primaryColor,
                                     textStyle:
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
@@ -2133,6 +2147,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
