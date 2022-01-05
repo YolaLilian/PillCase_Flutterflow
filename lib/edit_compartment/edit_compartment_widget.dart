@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 class EditCompartmentWidget extends StatefulWidget {
   const EditCompartmentWidget({
@@ -278,6 +279,124 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         ),
                       ],
                     ),
+                  ),
+                  Padding(
+
+
+
+                    child: StreamBuilder<List<CompartmentsRecord>>(
+                      stream: queryCompartmentsRecord(
+                        queryBuilder: (compartmentsRecord) => compartmentsRecord.where('user',
+                            isEqualTo: currentUserReference)
+                          .where('index',
+                            isEqualTo: widget.name.index),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.primaryColor,
+                              ),
+                            ),
+                          );
+                        }
+                        List<CompartmentsRecord> listViewCompartmentsRecordList = snapshot.data;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewCompartmentsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewCompartmentsRecord =
+                                listViewCompartmentsRecordList[listViewIndex].pills;
+                            return Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: CheckboxListTile(
+                                title: Text(listViewCompartmentsRecord.toString()),
+                                controlAffinity: 
+                                ListTileControlAffinity.leading,
+                                // value: _checked,
+                                // onChanged: (bool value) {
+                                //   setState(() {
+                                //     _checked = value;
+                                //   });
+                                // },
+                                value: timeDilation != 1.0,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    timeDilation = value ? 10.0 : 1.0;
+                                  });
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+
+
+
+                    
+                    // child: StreamBuilder<List<PillsRecord>>(
+                    //   stream: queryPillsRecord(
+                    //     queryBuilder: (pillsRecord) => pillsRecord.where('user',
+                    //         isEqualTo: currentUserReference),
+                    //   ),
+                    //   builder: (context, snapshot) {
+                    //     // Customize what your widget looks like when it's loading.
+                    //     if (!snapshot.hasData) {
+                    //       return Center(
+                    //         child: SizedBox(
+                    //           width: 50,
+                    //           height: 50,
+                    //           child: CircularProgressIndicator(
+                    //             color: FlutterFlowTheme.primaryColor,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }
+                    //     List<PillsRecord> listViewPillsRecordList =
+                    //         snapshot.data;
+                    //     return ListView.builder(
+                    //       padding: EdgeInsets.zero,
+                    //       shrinkWrap: true,
+                    //       scrollDirection: Axis.vertical,
+                    //       itemCount: listViewPillsRecordList.length,
+                    //       itemBuilder: (context, listViewIndex) {
+                    //         final listViewPillsRecord =
+                    //             listViewPillsRecordList[listViewIndex];
+                    //         return Align(
+                    //           alignment: AlignmentDirectional(0, 0),
+                    //           child: CheckboxListTile(
+                    //             title: Text(listViewPillsRecord.name),
+                    //             controlAffinity: 
+                    //             ListTileControlAffinity.leading,
+                    //             // value: _checked,
+                    //             // onChanged: (bool value) {
+                    //             //   setState(() {
+                    //             //     _checked = value;
+                    //             //   });
+                    //             // },
+                    //             value: timeDilation != 1.0,
+                    //             onChanged: (bool value) {
+                    //               setState(() {
+                    //                 timeDilation = value ? 10.0 : 1.0;
+                    //               });
+                    //             },
+                    //           ),
+                    //         );
+                    //       },
+                    //     );
+                    //   },
+                    // ),
+
+
+
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
