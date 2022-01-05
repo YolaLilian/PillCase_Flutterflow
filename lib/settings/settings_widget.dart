@@ -115,7 +115,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
                                   child: Container(
-                                    height: 40,
+                                    height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.4,
                                     child: ResetPasswordWidget(),
                                   ),
                                 );
