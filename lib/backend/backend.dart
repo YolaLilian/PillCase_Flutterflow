@@ -1,8 +1,10 @@
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pilly_case/auth/firebase_user_provider.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
+import '../auth/auth_util.dart';
 
 import 'schema/users_record.dart';
 import 'schema/compartments_record.dart';
@@ -40,6 +42,38 @@ Stream<List<CompartmentsRecord>> queryCompartmentsRecord(
     queryCollection(
         CompartmentsRecord.collection, CompartmentsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<DocumentReference>> getCompartmentPills(compartmentIndex) async {
+  // await CompartmentsRecord.collection
+  //     .where(
+  //       "user",
+  //       isEqualTo: currentUserReference,
+  //     )
+  //     .where("index", isEqualTo: compartmentIndex)
+  //     .get()
+  //     .then((value)
+      //   if (value.docs.isNotEmpty) {
+      //     var pills = (value.docs[0].data() as Map)["pills"];
+      //     return pills; // TODO: Fix return type
+      //   } else {
+      //     throw Exception();
+      //   }
+  //      );
+
+  final value = await CompartmentsRecord.collection
+    .where(
+      "user",
+      isEqualTo: currentUserReference,
+    )
+    .where("index", isEqualTo: compartmentIndex)
+    .get();
+    if (value.docs.isNotEmpty) {
+      var pills = (value.docs[0].data() as Map)["pills"];
+      return pills; // TODO: Fix return type
+    } else {
+      throw Exception();
+    }
+}
 
 Future<List<CompartmentsRecord>> queryCompartmentsRecordOnce(
         {Query Function(Query) queryBuilder,
