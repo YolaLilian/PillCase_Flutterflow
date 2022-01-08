@@ -43,7 +43,7 @@ Stream<List<CompartmentsRecord>> queryCompartmentsRecord(
         CompartmentsRecord.collection, CompartmentsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
-Future<List<DocumentReference>> getCompartmentPills(compartmentIndex) async {
+Future<List<dynamic>> getCompartmentPills(compartmentIndex) async {
   // await CompartmentsRecord.collection
   //     .where(
   //       "user",
@@ -52,27 +52,27 @@ Future<List<DocumentReference>> getCompartmentPills(compartmentIndex) async {
   //     .where("index", isEqualTo: compartmentIndex)
   //     .get()
   //     .then((value)
-      //   if (value.docs.isNotEmpty) {
-      //     var pills = (value.docs[0].data() as Map)["pills"];
-      //     return pills; // TODO: Fix return type
-      //   } else {
-      //     throw Exception();
-      //   }
+  //   if (value.docs.isNotEmpty) {
+  //     var pills = (value.docs[0].data() as Map)["pills"];
+  //     return pills; // TODO: Fix return type
+  //   } else {
+  //     throw Exception();
+  //   }
   //      );
 
   final value = await CompartmentsRecord.collection
-    .where(
-      "user",
-      isEqualTo: currentUserReference,
-    )
-    .where("index", isEqualTo: compartmentIndex)
-    .get();
-    if (value.docs.isNotEmpty) {
-      var pills = (value.docs[0].data() as Map)["pills"];
-      return pills; // TODO: Fix return type
-    } else {
-      throw Exception();
-    }
+      .where(
+        "user",
+        isEqualTo: currentUserReference,
+      )
+      .where("index", isEqualTo: compartmentIndex)
+      .get();
+  if (value.docs.isNotEmpty) {
+    var pills = (value.docs[0].data() as Map)["pills"];
+    return pills;
+  } else {
+    throw Exception();
+  }
 }
 
 Future<List<CompartmentsRecord>> queryCompartmentsRecordOnce(
