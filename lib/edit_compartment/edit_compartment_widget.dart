@@ -28,6 +28,11 @@ class EditCompartmentWidget extends StatefulWidget {
   _EditCompartmentWidgetState createState() => _EditCompartmentWidgetState();
 }
 
+Future<List<dynamic>> getCompPills(index) async {
+  var compartmentPills = await getCompartmentPills(index);
+  return compartmentPills;
+}
+
 class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   DateTime datePicked;
   TextEditingController textController;
@@ -306,16 +311,15 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         List<PillsRecord> listViewPillsRecordList =
                             snapshot.data;
                         var userPillsMap = [];
-                        var compartmentList =
-                            getCompartmentPills(widget.name.index);
-                            // .then(
-                            //                 (pills) =>
-                            //                 listViewPillsRecordList.map((userPill) => {
-                            //               userPillsMap.add({
-                            //                 userPill.reference: pills
-                            //                     .contains(userPill.reference)
-                            //               })
-                            //             }));
+
+                        getCompPills(widget.name.index).then(
+                            (compartmentPills) =>
+                                listViewPillsRecordList.map((userPill) => {
+                                      userPillsMap.add({
+                                        userPill.reference: compartmentPills
+                                            .contains(userPill.reference)
+                                      })
+                                    }));
 
                         return ListView.builder(
                           padding: EdgeInsets.zero,
@@ -329,8 +333,9 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                             return Align(
                               alignment: AlignmentDirectional(0, 0),
                               child: CheckboxListTile(
-                                title: Text(compartmentList.toString()),
-                                value: true, // TODO
+                                title: Text(listViewPillsRecord.name),
+                                value: false,
+                                // TODO
                                 onChanged: (bool value) {
                                   setState(() {
                                     // TODO
