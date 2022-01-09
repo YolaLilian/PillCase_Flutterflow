@@ -98,6 +98,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       return EmptyCompartmentListWidget();
                     }
                     return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -177,6 +178,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                               listViewPillsRecordList =
                                               snapshot.data;
                                           return ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,

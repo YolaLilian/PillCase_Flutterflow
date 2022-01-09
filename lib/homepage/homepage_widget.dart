@@ -80,6 +80,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                       return EmptyCompartmentListWidget();
                     }
                     return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -159,6 +160,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                               listViewPillsRecordList =
                                               snapshot.data;
                                           return ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
