@@ -50,10 +50,10 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 60),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
@@ -69,22 +69,21 @@ class _EmailEditWidgetState extends State<EmailEditWidget> {
                           Navigator.pop(context);
                         },
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: AlignmentDirectional(-0.35, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Verander\nEmail',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.title1.override(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 36,
-                                ),
-                              ),
-                            ],
-                          ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 60),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Verander\nEmail',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.title1.override(
+                          fontFamily: 'Poppins',
+                          fontSize: 36,
                         ),
                       ),
                     ],
