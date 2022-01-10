@@ -28,11 +28,6 @@ class EditCompartmentWidget extends StatefulWidget {
   _EditCompartmentWidgetState createState() => _EditCompartmentWidgetState();
 }
 
-Future<List<dynamic>> getCompPills(index) async {
-  var compartmentPills = await getCompartmentPills(index);
-  return compartmentPills;
-}
-
 class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   DateTime datePicked;
   TextEditingController textController;
@@ -44,10 +39,10 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
     textController = TextEditingController(text: widget.name.name);
   }
 
-  List<DocumentReference> getUserPillReferences() {}
-
   @override
   Widget build(BuildContext context) {
+    var compartmentPillReferences;
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
@@ -288,6 +283,31 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                       ],
                     ),
                   ),
+                  StreamBuilder<List<CompartmentsRecord>>(
+                    stream: queryCompartmentsRecord(
+                      queryBuilder: (compartmentRecord) => compartmentRecord
+                          .where('user', isEqualTo: currentUserReference)
+                          .where("index", isEqualTo: widget.name.index),
+                    ),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.primaryColor,
+                            ),
+                          ),
+                        );
+                      }
+
+                      CompartmentsRecord currentCompartment = snapshot.data[0];
+                      compartmentPillReferences = currentCompartment.pills;
+
+                      return SizedBox.shrink();
+                    },
+                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                     child: StreamBuilder<List<PillsRecord>>(
@@ -310,18 +330,19 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         }
                         List<PillsRecord> listViewPillsRecordList =
                             snapshot.data;
+
                         var userPillsMap = [];
 
-                        getCompPills(widget.name.index).then(
-                            (compartmentPills) =>
-                                listViewPillsRecordList.map((userPill) => {
-                                      userPillsMap.add({
-                                        userPill.reference: compartmentPills
-                                            .contains(userPill.reference)
-                                      })
-                                    }));
+                        listViewPillsRecordList.forEach((userPill) => userPillsMap
+                                .add({
+                              userPill.reference: compartmentPillReferences
+                                  .contains(userPill.reference)
+                            }));
+
+
 
                         return ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
@@ -334,11 +355,10 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               alignment: AlignmentDirectional(0, 0),
                               child: CheckboxListTile(
                                 title: Text(listViewPillsRecord.name),
-                                value: false,
-                                // TODO
-                                onChanged: (bool value) {
+                                value: userPillsMap[listViewIndex][listViewPillsRecord.reference] ,
+                                onChanged: (bool newValue) {
                                   setState(() {
-                                    // TODO
+                                    userPillsMap[listViewIndex][listViewPillsRecord.reference] = newValue;
                                   });
                                 },
                               ),
