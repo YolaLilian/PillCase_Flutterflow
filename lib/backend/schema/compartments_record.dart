@@ -52,6 +52,7 @@ abstract class CompartmentsRecord
           (s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   CompartmentsRecord._();
+
   factory CompartmentsRecord(
           [void Function(CompartmentsRecordBuilder) updates]) =
       _$CompartmentsRecord;
@@ -67,6 +68,7 @@ Map<String, dynamic> createCompartmentsRecordData({
   int index,
   DateTime plannedDate,
   DocumentReference user,
+  ListBuilder<DocumentReference> pills,
 }) =>
     serializers.toFirestore(
         CompartmentsRecord.serializer,
@@ -76,4 +78,4 @@ Map<String, dynamic> createCompartmentsRecordData({
           ..plannedDate = plannedDate
           ..users = null
           ..user = user
-          ..pills = null));
+          ..pills = pills));
