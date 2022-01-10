@@ -86,6 +86,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                         listViewCompartmentsCompartmentsRecordList =
                         snapshot.data;
                     return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
