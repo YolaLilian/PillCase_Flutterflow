@@ -359,6 +359,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                 onChanged: (bool newValue) {
                                   setState(() {
                                     userPillsMap[listViewIndex][listViewPillsRecord.reference] = newValue;
+                                    // TODO: Checkbox doesn't update when clicked on
                                   });
                                 },
                               ),
