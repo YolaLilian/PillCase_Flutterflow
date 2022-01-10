@@ -329,7 +329,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                     },
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                    padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 30),
                     child: StreamBuilder<List<PillsRecord>>(
                       stream: queryPillsRecord(
                         queryBuilder: (pillsRecord) =>
