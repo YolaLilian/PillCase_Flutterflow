@@ -351,18 +351,21 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                             final listViewPillsRecord =
                                 listViewPillsRecordList[listViewIndex];
 
-                            return Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: CheckboxListTile(
-                                title: Text(listViewPillsRecord.name),
-                                value: userPillsMap[listViewIndex][listViewPillsRecord.reference] ,
-                                onChanged: (bool newValue) {
-                                  setState(() {
-                                    userPillsMap[listViewIndex][listViewPillsRecord.reference] = newValue;
-                                    // TODO: Checkbox doesn't update when clicked on
-                                  });
-                                },
-                              ),
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: CheckboxListTile(
+                                    title: Text(listViewPillsRecord.name),
+                                    value: userPillsMap[listViewIndex][listViewPillsRecord.reference] ,
+                                    onChanged: (bool newValue) {
+                                      setState(() {
+                                        userPillsMap[listViewIndex][listViewPillsRecord.reference] = newValue;
+                                      });
+                                    },
+                                  ),
+                                );
+                              }
                             );
                           },
                         );
@@ -417,6 +420,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               createCompartmentsRecordData(
                             name: textController.text,
                             plannedDate: datePicked,
+                                // TODO: Save checked checkboxes only for current compartment
                           );
                           await widget.name.reference
                               .update(compartmentsUpdateData);
