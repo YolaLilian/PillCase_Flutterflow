@@ -144,65 +144,40 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 30),
-                                      child: StreamBuilder<List<PillsRecord>>(
-                                        stream: queryPillsRecord(
-                                          queryBuilder: (pillsRecord) =>
-                                              pillsRecord.where('user',
-                                                  isEqualTo:
-                                                      currentUserReference),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: FlutterFlowTheme
-                                                      .primaryColor,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<PillsRecord>
-                                              listViewPillsRecordList =
-                                              snapshot.data;
-                                          return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount:
-                                                listViewPillsRecordList.length,
-                                            itemBuilder:
-                                                (context, listViewIndex) {
-                                              final listViewPillsRecord =
-                                                  listViewPillsRecordList[
-                                                      listViewIndex];
-                                              return Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: PillCardWidget(
-                                                  pillName:
-                                                      listViewPillsRecord.name,
+                                  for (var pill
+                                      in listViewCompartmentsRecord.pills)
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 30),
+                                        child: StreamBuilder<PillsRecord>(
+                                          stream: PillsRecord.getDocument(pill),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: FlutterFlowTheme
+                                                        .primaryColor,
+                                                  ),
                                                 ),
                                               );
-                                            },
-                                          );
-                                        },
+                                            }
+                                            var pill = snapshot.data;
+                                            return PillCardWidget(
+                                                pillName: pill.name);
+                                          },
+                                        ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ],

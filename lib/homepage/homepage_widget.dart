@@ -126,23 +126,19 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: Padding(
+                                  for (var pill
+                                      in listViewCompartmentsRecord.pills)
+                                    Flexible(
+                                        child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
-                                      child: StreamBuilder<List<PillsRecord>>(
-                                        stream: queryPillsRecord(
-                                          queryBuilder: (pillsRecord) =>
-                                              pillsRecord.where('user',
-                                                  isEqualTo:
-                                                      currentUserReference),
-                                        ),
+                                      child: StreamBuilder<PillsRecord>(
+                                        stream: PillsRecord.getDocument(pill),
                                         builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
@@ -156,35 +152,12 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                               ),
                                             );
                                           }
-                                          List<PillsRecord>
-                                              listViewPillsRecordList =
-                                              snapshot.data;
-                                          return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount:
-                                                listViewPillsRecordList.length,
-                                            itemBuilder:
-                                                (context, listViewIndex) {
-                                              final listViewPillsRecord =
-                                                  listViewPillsRecordList[
-                                                      listViewIndex];
-                                              return Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: PillCardWidget(
-                                                  pillName:
-                                                      listViewPillsRecord.name,
-                                                ),
-                                              );
-                                            },
-                                          );
+                                          var pill = snapshot.data;
+                                          return PillCardWidget(
+                                              pillName: pill.name);
                                         },
                                       ),
-                                    ),
-                                  ),
+                                    ))
                                 ],
                               ),
                             ],
