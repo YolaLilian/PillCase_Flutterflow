@@ -126,13 +126,13 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   for (var pill
                                       in listViewCompartmentsRecord.pills)
-                                    Expanded(
+                                    Flexible(
                                         child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
