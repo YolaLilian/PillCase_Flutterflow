@@ -44,6 +44,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // var compartmentPillReferences;
+    var userPillsMap = [];
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
@@ -57,7 +59,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
-                  child: PageView(
+                  child: StreamBuilder<List<CompartmentsRecord>>(
+                  stream: queryCompartmentsRecord(
+                    queryBuilder: (compartmentsRecord) => compartmentsRecord
+                        .where('user', isEqualTo: currentUserReference)
+                        .orderBy('index'),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    List<CompartmentsRecord>
+                      compartments =
+                        snapshot.data;
+                  return PageView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: pageViewController ??=
                         PageController(initialPage: 0),
@@ -87,12 +111,65 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Compartement 1',
+                                            compartments[0].name,
                                             style: FlutterFlowTheme.title1
                                                 .override(
                                               fontFamily: 'Poppins',
                                               fontSize: 36,
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          30, 0, 30, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.85,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    'Deze gegevens kunnen later aangepast worden',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF5F5F5F),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -176,7 +253,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Naam compartement 1',
+                                                        compartments[0].name,
                                                     hintStyle: FlutterFlowTheme
                                                         .bodyText1,
                                                     enabledBorder:
@@ -339,59 +416,96 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 0, 30, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.85,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Text(
-                                                    'Deze gegevens kunnen later aangepast worden',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF5F5F5F),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+
+
+                             Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                              child: StreamBuilder<List<PillsRecord>>(
+                                stream: queryPillsRecord(
+                                  queryBuilder: (pillsRecord) =>
+                                      pillsRecord.where('user',
+                                          isEqualTo: currentUserReference),
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.primaryColor,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<PillsRecord> listViewPillsRecordList =
+                                      snapshot.data;
+
+                                  listViewPillsRecordList.forEach((userPill) =>
+                                      userPillsMap
+                                          .add({
+                                        userPill.reference: compartments[0].pills.isNotEmpty ?
+                                            compartments[0].pills.contains(userPill.reference) : false
+                                      }));
+
+                                  if (listViewPillsRecordList.isEmpty) {
+                                    return Align(
+                                      alignment:
+                                          AlignmentDirectional(
+                                              0, 0),
+                                      child: Text(
+                                        'Geen pillen gevonden voor dit account...',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme
+                                            .subtitle1
+                                            .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF5F5F5F),
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  return ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: listViewPillsRecordList.length,
+                                    itemBuilder: (context, listViewIndex) {
+                                      final listViewPillsRecord =
+                                      listViewPillsRecordList[listViewIndex];
+
+                                      return StatefulBuilder(
+                                          builder: (context, setState) {
+                                            return Align(
+                                              alignment: AlignmentDirectional(0, 0),
+                                              child: CheckboxListTile(
+                                                controlAffinity: ListTileControlAffinity
+                                                    .leading,
+                                                title: Text(listViewPillsRecord.name),
+                                                value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                    .reference],
+                                                onChanged: (bool newValue) {
+                                                  setState(() {
+                                                    userPillsMap[listViewIndex][listViewPillsRecord
+                                                        .reference] = newValue;
+                                                  });
+                                                },
+                                              ),
+                                            );
+                                          }
+                                      );
+                                    },
+                                  );
+                                },
                               ),
+                            ), 
+
+
+
+                              
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
@@ -440,19 +554,30 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                     30, 0, 30, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final compartmentsCreateData =
-                                        createCompartmentsRecordData(
+                                    var userPillMap = {};
+                                    var checkedPills = [];
+
+                                    userPillsMap.forEach((userPill) {
+                                      userPillMap.addAll(userPill);
+                                    });
+
+                                    for (var userPillMap in userPillMap.entries) {
+                                      if (userPillMap.value) {
+                                        checkedPills.add(userPillMap.key);
+                                      }
+                                    }
+
+                                    final compartmentsUpdateData =
+                                    createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController1.text,
-                                        'Compartement 1',
-                                      ),
+                                        'Compartement 1'),
                                       plannedDate: datePicked1,
-                                      user: currentUserReference,
-                                      index: 0,
+                                      pills: ListBuilder(checkedPills)
                                     );
-                                    await CompartmentsRecord.collection
-                                        .doc()
-                                        .set(compartmentsCreateData);
+
+                                    await compartments[0].reference.update(compartmentsUpdateData);
+
                                     await pageViewController.nextPage(
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.ease,
@@ -506,12 +631,65 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Compartement 2',
+                                            compartments[1].name,
                                             style: FlutterFlowTheme.title1
                                                 .override(
                                               fontFamily: 'Poppins',
                                               fontSize: 36,
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          30, 0, 30, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.85,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    'Deze gegevens kunnen later aangepast worden',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF5F5F5F),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -595,7 +773,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Naam compartement 2',
+                                                        compartments[1].name,
                                                     hintStyle: FlutterFlowTheme
                                                         .bodyText1,
                                                     enabledBorder:
@@ -759,56 +937,87 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 0, 30, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.85,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Text(
-                                                    'Deze gegevens kunnen later aangepast worden',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF5F5F5F),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: StreamBuilder<List<PillsRecord>>(
+                                  stream: queryPillsRecord(
+                                    queryBuilder: (pillsRecord) =>
+                                        pillsRecord.where('user',
+                                            isEqualTo: currentUserReference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.primaryColor,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                        ),
+                                      );
+                                    }
+                                    List<PillsRecord> listViewPillsRecordList =
+                                        snapshot.data;
+
+                                    listViewPillsRecordList.forEach((userPill) =>
+                                        userPillsMap
+                                            .add({
+                                          userPill.reference: compartments[1].pills.isNotEmpty ?
+                                              compartments[1].pills.contains(userPill.reference) : false
+                                        }));
+
+                                    if (listViewPillsRecordList.isEmpty) {
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(
+                                                0, 0),
+                                        child: Text(
+                                          'Geen pillen gevonden voor dit account...',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme
+                                              .subtitle1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF5F5F5F),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    return ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: listViewPillsRecordList.length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewPillsRecord =
+                                        listViewPillsRecordList[listViewIndex];
+
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return Align(
+                                                alignment: AlignmentDirectional(0, 0),
+                                                child: CheckboxListTile(
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading,
+                                                  title: Text(listViewPillsRecord.name),
+                                                  value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                      .reference],
+                                                  onChanged: (bool newValue) {
+                                                    setState(() {
+                                                      userPillsMap[listViewIndex][listViewPillsRecord
+                                                          .reference] = newValue;
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            }
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               Padding(
@@ -859,19 +1068,30 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                     30, 0, 30, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final compartmentsCreateData =
-                                        createCompartmentsRecordData(
+                                    var userPillMap = {};
+                                    var checkedPills = [];
+
+                                    userPillsMap.forEach((userPill) {
+                                      userPillMap.addAll(userPill);
+                                    });
+
+                                    for (var userPillMap in userPillMap.entries) {
+                                      if (userPillMap.value) {
+                                        checkedPills.add(userPillMap.key);
+                                      }
+                                    }
+
+                                    final compartmentsUpdateData =
+                                    createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController2.text,
-                                        'Compartement 2',
-                                      ),
+                                        'Compartement 2'),
                                       plannedDate: datePicked2,
-                                      user: currentUserReference,
-                                      index: 1,
+                                      pills: ListBuilder(checkedPills)
                                     );
-                                    await CompartmentsRecord.collection
-                                        .doc()
-                                        .set(compartmentsCreateData);
+
+                                    await compartments[1].reference.update(compartmentsUpdateData);
+
                                     await pageViewController.nextPage(
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.ease,
@@ -925,12 +1145,65 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Compartement 3',
+                                            compartments[2].name,
                                             style: FlutterFlowTheme.title1
                                                 .override(
                                               fontFamily: 'Poppins',
                                               fontSize: 36,
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          30, 0, 30, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.85,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    'Deze gegevens kunnen later aangepast worden',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF5F5F5F),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -1014,7 +1287,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Naam compartement 3',
+                                                        compartments[2].name,
                                                     hintStyle: FlutterFlowTheme
                                                         .bodyText1,
                                                     enabledBorder:
@@ -1178,56 +1451,87 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 0, 30, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.85,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Text(
-                                                    'Deze gegevens kunnen later aangepast worden',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF5F5F5F),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: StreamBuilder<List<PillsRecord>>(
+                                  stream: queryPillsRecord(
+                                    queryBuilder: (pillsRecord) =>
+                                        pillsRecord.where('user',
+                                            isEqualTo: currentUserReference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.primaryColor,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                        ),
+                                      );
+                                    }
+                                    List<PillsRecord> listViewPillsRecordList =
+                                        snapshot.data;
+
+                                    listViewPillsRecordList.forEach((userPill) =>
+                                        userPillsMap
+                                            .add({
+                                          userPill.reference: compartments[2].pills.isNotEmpty ?
+                                              compartments[2].pills.contains(userPill.reference) : false
+                                        }));
+
+                                    if (listViewPillsRecordList.isEmpty) {
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(
+                                                0, 0),
+                                        child: Text(
+                                          'Geen pillen gevonden voor dit account...',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme
+                                              .subtitle1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF5F5F5F),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    return ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: listViewPillsRecordList.length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewPillsRecord =
+                                        listViewPillsRecordList[listViewIndex];
+
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return Align(
+                                                alignment: AlignmentDirectional(0, 0),
+                                                child: CheckboxListTile(
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading,
+                                                  title: Text(listViewPillsRecord.name),
+                                                  value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                      .reference],
+                                                  onChanged: (bool newValue) {
+                                                    setState(() {
+                                                      userPillsMap[listViewIndex][listViewPillsRecord
+                                                          .reference] = newValue;
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            }
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               Padding(
@@ -1278,19 +1582,30 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                     30, 0, 30, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final compartmentsCreateData =
-                                        createCompartmentsRecordData(
+                                    var userPillMap = {};
+                                    var checkedPills = [];
+
+                                    userPillsMap.forEach((userPill) {
+                                      userPillMap.addAll(userPill);
+                                    });
+
+                                    for (var userPillMap in userPillMap.entries) {
+                                      if (userPillMap.value) {
+                                        checkedPills.add(userPillMap.key);
+                                      }
+                                    }
+
+                                    final compartmentsUpdateData =
+                                    createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController3.text,
-                                        'Compartement 3',
-                                      ),
+                                        'Compartement 3'),
                                       plannedDate: datePicked3,
-                                      user: currentUserReference,
-                                      index: 2,
+                                      pills: ListBuilder(checkedPills)
                                     );
-                                    await CompartmentsRecord.collection
-                                        .doc()
-                                        .set(compartmentsCreateData);
+
+                                    await compartments[2].reference.update(compartmentsUpdateData);
+
                                     await pageViewController.nextPage(
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.ease,
@@ -1344,12 +1659,65 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Compartement 4',
+                                            compartments[3].name,
                                             style: FlutterFlowTheme.title1
                                                 .override(
                                               fontFamily: 'Poppins',
                                               fontSize: 36,
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          30, 0, 30, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.85,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    'Deze gegevens kunnen later aangepast worden',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF5F5F5F),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -1433,7 +1801,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Naam compartement 4',
+                                                        compartments[3].name,
                                                     hintStyle: FlutterFlowTheme
                                                         .bodyText1,
                                                     enabledBorder:
@@ -1597,56 +1965,87 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 0, 30, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.85,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Text(
-                                                    'Deze gegevens kunnen later aangepast worden',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF5F5F5F),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: StreamBuilder<List<PillsRecord>>(
+                                  stream: queryPillsRecord(
+                                    queryBuilder: (pillsRecord) =>
+                                        pillsRecord.where('user',
+                                            isEqualTo: currentUserReference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.primaryColor,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                        ),
+                                      );
+                                    }
+                                    List<PillsRecord> listViewPillsRecordList =
+                                        snapshot.data;
+
+                                    listViewPillsRecordList.forEach((userPill) =>
+                                        userPillsMap
+                                            .add({
+                                          userPill.reference: compartments[3].pills.isNotEmpty ?
+                                              compartments[3].pills.contains(userPill.reference) : false
+                                        }));
+
+                                    if (listViewPillsRecordList.isEmpty) {
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(
+                                                0, 0),
+                                        child: Text(
+                                          'Geen pillen gevonden voor dit account...',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme
+                                              .subtitle1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF5F5F5F),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    return ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: listViewPillsRecordList.length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewPillsRecord =
+                                        listViewPillsRecordList[listViewIndex];
+
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return Align(
+                                                alignment: AlignmentDirectional(0, 0),
+                                                child: CheckboxListTile(
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading,
+                                                  title: Text(listViewPillsRecord.name),
+                                                  value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                      .reference],
+                                                  onChanged: (bool newValue) {
+                                                    setState(() {
+                                                      userPillsMap[listViewIndex][listViewPillsRecord
+                                                          .reference] = newValue;
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            }
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               Padding(
@@ -1697,19 +2096,30 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                     30, 0, 30, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final compartmentsCreateData =
-                                        createCompartmentsRecordData(
+                                    var userPillMap = {};
+                                    var checkedPills = [];
+
+                                    userPillsMap.forEach((userPill) {
+                                      userPillMap.addAll(userPill);
+                                    });
+
+                                    for (var userPillMap in userPillMap.entries) {
+                                      if (userPillMap.value) {
+                                        checkedPills.add(userPillMap.key);
+                                      }
+                                    }
+
+                                    final compartmentsUpdateData =
+                                    createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController4.text,
-                                        'Compartement 4',
-                                      ),
+                                        'Compartement 4'),
                                       plannedDate: datePicked4,
-                                      user: currentUserReference,
-                                      index: 3,
+                                      pills: ListBuilder(checkedPills)
                                     );
-                                    await CompartmentsRecord.collection
-                                        .doc()
-                                        .set(compartmentsCreateData);
+
+                                    await compartments[3].reference.update(compartmentsUpdateData);
+
                                     await pageViewController.nextPage(
                                       duration: Duration(milliseconds: 300),
                                       curve: Curves.ease,
@@ -1763,12 +2173,65 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Compartement 5',
+                                            compartments[4].name,
                                             style: FlutterFlowTheme.title1
                                                 .override(
                                               fontFamily: 'Poppins',
                                               fontSize: 36,
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          30, 0, 30, 0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.85,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Text(
+                                                    'Deze gegevens kunnen later aangepast worden',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF5F5F5F),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -1852,7 +2315,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Naam compartement 5',
+                                                        compartments[4].name,
                                                     hintStyle: FlutterFlowTheme
                                                         .bodyText1,
                                                     enabledBorder:
@@ -2016,56 +2479,87 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 0, 30, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.85,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme
-                                                      .tertiaryColor,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Text(
-                                                    'Deze gegevens kunnen later aangepast worden',
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF5F5F5F),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: StreamBuilder<List<PillsRecord>>(
+                                  stream: queryPillsRecord(
+                                    queryBuilder: (pillsRecord) =>
+                                        pillsRecord.where('user',
+                                            isEqualTo: currentUserReference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.primaryColor,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                        ),
+                                      );
+                                    }
+                                    List<PillsRecord> listViewPillsRecordList =
+                                        snapshot.data;
+
+                                    listViewPillsRecordList.forEach((userPill) =>
+                                        userPillsMap
+                                            .add({
+                                          userPill.reference: compartments[4].pills.isNotEmpty ?
+                                              compartments[4].pills.contains(userPill.reference) : false
+                                        }));
+
+                                    if (listViewPillsRecordList.isEmpty) {
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(
+                                                0, 0),
+                                        child: Text(
+                                          'Geen pillen gevonden voor dit account...',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme
+                                              .subtitle1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF5F5F5F),
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    return ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: listViewPillsRecordList.length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewPillsRecord =
+                                        listViewPillsRecordList[listViewIndex];
+
+                                        return StatefulBuilder(
+                                            builder: (context, setState) {
+                                              return Align(
+                                                alignment: AlignmentDirectional(0, 0),
+                                                child: CheckboxListTile(
+                                                  controlAffinity: ListTileControlAffinity
+                                                      .leading,
+                                                  title: Text(listViewPillsRecord.name),
+                                                  value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                      .reference],
+                                                  onChanged: (bool newValue) {
+                                                    setState(() {
+                                                      userPillsMap[listViewIndex][listViewPillsRecord
+                                                          .reference] = newValue;
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            }
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                               Padding(
@@ -2116,19 +2610,30 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                     30, 0, 30, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final compartmentsCreateData =
-                                        createCompartmentsRecordData(
+                                    var userPillMap = {};
+                                    var checkedPills = [];
+
+                                    userPillsMap.forEach((userPill) {
+                                      userPillMap.addAll(userPill);
+                                    });
+
+                                    for (var userPillMap in userPillMap.entries) {
+                                      if (userPillMap.value) {
+                                        checkedPills.add(userPillMap.key);
+                                      }
+                                    }
+
+                                    final compartmentsUpdateData =
+                                    createCompartmentsRecordData(
                                       name: valueOrDefault<String>(
                                         textController5.text,
-                                        'Compartement 5',
-                                      ),
+                                        'Compartement 5'),
                                       plannedDate: datePicked5,
-                                      user: currentUserReference,
-                                      index: 4,
+                                      pills: ListBuilder(checkedPills)
                                     );
-                                    await CompartmentsRecord.collection
-                                        .doc()
-                                        .set(compartmentsCreateData);
+
+                                    await compartments[4].reference.update(compartmentsUpdateData);
+                                    
                                     await Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
@@ -2163,7 +2668,9 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                         ],
                       ),
                     ],
-                  ),
+                  );
+                  }
+                ),
                 ),
                 Align(
                   alignment: AlignmentDirectional(0, 1),
