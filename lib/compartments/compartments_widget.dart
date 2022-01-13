@@ -95,6 +95,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                         final listViewCompartmentsCompartmentsRecord =
                             listViewCompartmentsCompartmentsRecordList[
                                 listViewCompartmentsIndex];
+
                         return Align(
                           alignment: AlignmentDirectional(0, 0),
                           child: Padding(
@@ -102,7 +103,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                                 EdgeInsetsDirectional.fromSTEB(30, 5, 30, 5),
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0xFFF1F1F1),
+                              color: checkIfDateTimePassed(listViewCompartmentsCompartmentsRecord.plannedDate),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -130,7 +131,13 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                                                 replacement: '…',
                                               ),
                                               textAlign: TextAlign.start,
-                                              style: FlutterFlowTheme.title3,
+                                              style: GoogleFonts.getFont(
+                                                'Poppins',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 20,
+                                              ),
+
                                             ),
                                           ],
                                         ),
@@ -149,7 +156,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                                             buttonSize: 60,
                                             icon: Icon(
                                               Icons.edit_rounded,
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               size: 30,
                                             ),
                                             onPressed: () async {
@@ -188,7 +195,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
                                             fontFamily: 'Poppins',
-                                            color: Color(0xFF5F5F5F),
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -210,4 +217,14 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
       ),
     );
   }
+}
+
+Color checkIfDateTimePassed(DateTime s) {
+  if (s != null) {
+    if (s.isBefore(DateTime.now())) {
+      return Colors.green;
+    } else {
+      return Colors.orange;
+    }
+  }else return Colors.transparent;
 }
