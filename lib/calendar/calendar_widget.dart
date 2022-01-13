@@ -134,14 +134,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 10),
-                                    child: Text(
-                                      dateTimeFormat(
-                                          'relative',
-                                          listViewCompartmentsRecord
-                                              .plannedDate),
-                                      style: FlutterFlowTheme.subtitle2,
-                                    ),
-                                  ),
+                                    child: checkStatusOfDates(
+                                        listViewCompartmentsRecord
+                                            .plannedDate)),
                                 ],
                               ),
                               Column(
@@ -193,5 +188,31 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         ),
       ),
     );
+  }
+}
+
+Text checkStatusOfDates(DateTime plannedDate) {
+  if (plannedDate != null) {
+    var formattedDate = dateTimeFormat('Hm', plannedDate);
+    if (plannedDate.isBefore(DateTime.now())) {
+      return Text(
+        'Gepland om: $formattedDate',
+        style: GoogleFonts.getFont('Poppins',
+            color: FlutterFlowTheme.secondaryColor,
+            fontWeight: FontWeight.normal,
+            fontSize: 16),
+      );
+    } else if (plannedDate.isAfter(DateTime.now())) {
+      var relativeTime = plannedDate.difference(DateTime.now()).inHours;
+      return Text(
+        'Gepland om: $formattedDate\nNog $relativeTime uur te gaan',
+        style: GoogleFonts.getFont('Poppins',
+            color: FlutterFlowTheme.warning,
+            fontWeight: FontWeight.normal,
+            fontSize: 16),
+      );
+    } else {
+      return Text("");
+    }
   }
 }
