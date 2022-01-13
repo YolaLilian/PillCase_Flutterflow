@@ -222,9 +222,9 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
 Color checkIfDateTimePassed(DateTime s) {
   if (s != null) {
     if (s.isBefore(DateTime.now())) {
-      return Colors.green;
+      return FlutterFlowTheme.secondaryColor;
     } else {
-      return Colors.orange;
+      return FlutterFlowTheme.warning;
     }
-  }else return Colors.transparent;
+  } else return Colors.transparent;
 }
