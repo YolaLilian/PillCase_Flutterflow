@@ -45,8 +45,40 @@ Future resetPassword({String email, BuildContext context}) async {
     return null;
   }
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Password reset email sent!')),
+    const SnackBar(content: Text('Wachtwoord reset email verzonden!')),
   );
+}
+
+Future updateEmail({String email, BuildContext context}) async {
+  try {
+    await FirebaseAuth.instance.currentUser.updateEmail(email);
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: ${e.message}')),
+    );
+    return null;
+  }
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Email is geüpdatet!')),
+  );
+}
+
+Future reauthenticateUserWithCredentials(
+    {String email, String password, BuildContext context}) async {
+  AuthCredential credential =
+      EmailAuthProvider.credential(email: email, password: password);
+
+  try {
+    await FirebaseAuth.instance.currentUser
+        .reauthenticateWithCredential(credential);
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: ${e.message}')),
+    );
+    return null;
+  }
 }
 
 Future sendEmailVerification() async =>
