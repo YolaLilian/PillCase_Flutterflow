@@ -497,6 +497,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                     });
                                           }
 
+                                          for (var index =
+                                              listViewPillsRecordList
+                                                  .length;
+                                          index >= 1;
+                                          index--) {
+                                            userPillsMap[index-1][
+                                            listViewPillsRecordList[index-1]
+                                                .reference] = false;
+                                          }
+
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
@@ -1079,6 +1089,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                             false
                                                       })
                                                     });
+                                          }
+
+                                          for (var index =
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
+                                            userPillsMap[index-1][
+                                                listViewPillsRecordList[index-1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
@@ -1665,6 +1685,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                     });
                                           }
 
+                                          for (var index =
+                                              listViewPillsRecordList
+                                                  .length;
+                                          index >= 1;
+                                          index--) {
+                                            userPillsMap[index-1][
+                                            listViewPillsRecordList[index-1]
+                                                .reference] = false;
+                                          }
+
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
@@ -2249,6 +2279,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                     });
                                           }
 
+                                          for (var index =
+                                              listViewPillsRecordList
+                                                  .length;
+                                          index >= 1;
+                                          index--) {
+                                            userPillsMap[index-1][
+                                            listViewPillsRecordList[index-1]
+                                                .reference] = false;
+                                          }
+
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
@@ -2831,6 +2871,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                             false
                                                       })
                                                     });
+                                          }
+
+                                          for (var index =
+                                              listViewPillsRecordList
+                                                  .length;
+                                          index >= 1;
+                                          index--) {
+                                            userPillsMap[index-1][
+                                            listViewPillsRecordList[index-1]
+                                                .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
