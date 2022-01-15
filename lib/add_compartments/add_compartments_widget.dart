@@ -54,20 +54,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
           padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
           child: Container(
             width: double.infinity,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * 0.9,
+            height: MediaQuery.of(context).size.height * 0.9,
             child: Stack(
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
                   child: StreamBuilder<List<CompartmentsRecord>>(
                       stream: queryCompartmentsRecord(
-                        queryBuilder: (compartmentsRecord) =>
-                            compartmentsRecord
-                                .where('user', isEqualTo: currentUserReference)
-                                .orderBy('index'),
+                        queryBuilder: (compartmentsRecord) => compartmentsRecord
+                            .where('user', isEqualTo: currentUserReference)
+                            .orderBy('index'),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -82,9 +78,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                             ),
                           );
                         }
-                        List<CompartmentsRecord>
-                        compartments =
-                            snapshot.data;
+                        List<CompartmentsRecord> compartments = snapshot.data;
                         return PageView(
                           physics: const NeverScrollableScrollPhysics(),
                           controller: pageViewController ??=
@@ -102,19 +96,19 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           0, 30, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[0].name,
@@ -131,33 +125,32 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -165,16 +158,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -190,56 +185,60 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -247,74 +246,81 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                              .primaryColor,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        controller: textController1,
+                                                        controller:
+                                                            textController1,
                                                         obscureText: false,
-                                                        decoration: InputDecoration(
+                                                        decoration:
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[0].name,
-                                                          hintStyle: FlutterFlowTheme
-                                                              .bodyText1,
+                                                              compartments[0]
+                                                                  .name,
+                                                          hintStyle:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -329,54 +335,58 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -384,53 +394,57 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
                                                         await DatePicker
                                                             .showDateTimePicker(
                                                           context,
-                                                          showTitleActions: true,
+                                                          showTitleActions:
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked1 = date);
+                                                                datePicked1 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                .primaryColor,
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
-                                                            dateTimeFormat(
-                                                                'Hm',
+                                                            dateTimeFormat('Hm',
                                                                 datePicked1),
-                                                            style: FlutterFlowTheme
-                                                                .bodyText1,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -443,8 +457,6 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         ],
                                       ),
                                     ),
-
-
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
@@ -452,7 +464,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         stream: queryPillsRecord(
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
-                                                  isEqualTo: currentUserReference),
+                                                  isEqualTo:
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -461,89 +474,97 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               child: SizedBox(
                                                 width: 50,
                                                 height: 50,
-                                                child: CircularProgressIndicator(
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
                                               ),
                                             );
                                           }
-                                          List<
-                                              PillsRecord> listViewPillsRecordList =
+                                          List<PillsRecord>
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
-                                          if (listViewPillsRecordList.length > userPillsMap.length) {
-                                            listViewPillsRecordList.forEach((
-                                                userPill) => {
-                                              userPillsMap
-                                                  .add({
-                                                userPill.reference: false
-                                              })
-                                            });
+                                          if (listViewPillsRecordList.length >
+                                              userPillsMap.length) {
+                                            listViewPillsRecordList
+                                                .forEach((userPill) => {
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
-
-
-
-
                                           if (listViewPillsRecordList.isEmpty) {
-                                          return Align(
-                                          alignment:
-                                          AlignmentDirectional(
-                                          0, 0),
-                                          child: Text(
-                                          'Geen pillen gevonden voor dit account...',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme
-                                              .subtitle1
-                                              .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF5F5F5F),
-                                          ),
-                                          ),
-                                          );
+                                            return Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: Text(
+                                                'Geen pillen gevonden voor dit account...',
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme
+                                                    .subtitle1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF5F5F5F),
+                                                ),
+                                              ),
+                                            );
                                           }
 
                                           return ListView.builder(
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: listViewPillsRecordList.length,
-                                          itemBuilder: (context, listViewIndex) {
-                                          final listViewPillsRecord =
-                                          listViewPillsRecordList[listViewIndex];
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount:
+                                                listViewPillsRecordList.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
+                                              final listViewPillsRecord =
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
-                                          return StatefulBuilder(
-                                          builder: (context, setState) {
-                                          return Align(
-                                          alignment: AlignmentDirectional(0, 0),
-                                          child: CheckboxListTile(
-                                          controlAffinity: ListTileControlAffinity
-                                              .leading,
-                                          title: Text(listViewPillsRecord.name),
-                                          value: userPillsMap[listViewIndex][listViewPillsRecord
-                                              .reference],
-                                          onChanged: (bool newValue) {
-                                          setState(() {
-                                          userPillsMap[listViewIndex][listViewPillsRecord
-                                              .reference] = newValue;
-                                          });
-                                          },
-                                          ),
-                                          );
-                                          }
-                                          );
-                                          },
+                                              return StatefulBuilder(
+                                                  builder: (context, setState) {
+                                                return Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .leading,
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
+                                                        listViewPillsRecord
+                                                            .reference],
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
+                                            },
                                           );
                                         },
                                       ),
                                     ),
-
-
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -552,15 +573,12 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding:
-                                                MediaQuery
-                                                    .of(context)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -573,8 +591,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -600,28 +618,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             userPillMap.addAll(userPill);
                                           });
 
-                                          for (var userPillMap in userPillMap
-                                              .entries) {
+                                          for (var userPillMap
+                                              in userPillMap.entries) {
                                             if (userPillMap.value) {
                                               checkedPills.add(userPillMap.key);
                                             }
                                           }
 
                                           final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController1.text,
-                                                  'Compartement 1'),
-                                              plannedDate: datePicked1,
-                                              pills: ListBuilder(checkedPills)
-                                          );
+                                              createCompartmentsRecordData(
+                                                  name: valueOrDefault<String>(
+                                                      textController1.text,
+                                                      'Compartement 1'),
+                                                  plannedDate: datePicked1,
+                                                  pills: ListBuilder(
+                                                      checkedPills));
 
-                                          await compartments[0].reference
+                                          await compartments[0]
+                                              .reference
                                               .update(compartmentsUpdateData);
 
                                           await pageViewController.nextPage(
-                                            duration: Duration(
-                                                milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -629,10 +648,10 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40,
-                                          color: FlutterFlowTheme
-                                              .secondaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -661,19 +680,19 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           0, 30, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[1].name,
@@ -690,33 +709,32 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -724,16 +742,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -749,56 +769,60 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -806,74 +830,81 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                              .primaryColor,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        controller: textController2,
+                                                        controller:
+                                                            textController2,
                                                         obscureText: false,
-                                                        decoration: InputDecoration(
+                                                        decoration:
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[1].name,
-                                                          hintStyle: FlutterFlowTheme
-                                                              .bodyText1,
+                                                              compartments[1]
+                                                                  .name,
+                                                          hintStyle:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -888,54 +919,58 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -943,53 +978,57 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
                                                         await DatePicker
                                                             .showDateTimePicker(
                                                           context,
-                                                          showTitleActions: true,
+                                                          showTitleActions:
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked2 = date);
+                                                                datePicked2 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                .primaryColor,
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
-                                                            dateTimeFormat(
-                                                                'Hm',
+                                                            dateTimeFormat('Hm',
                                                                 datePicked2),
-                                                            style: FlutterFlowTheme
-                                                                .bodyText1,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -1009,7 +1048,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         stream: queryPillsRecord(
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
-                                                  isEqualTo: currentUserReference),
+                                                  isEqualTo:
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -1018,32 +1058,33 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               child: SizedBox(
                                                 width: 50,
                                                 height: 50,
-                                                child: CircularProgressIndicator(
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
                                               ),
                                             );
                                           }
-                                          List<
-                                              PillsRecord> listViewPillsRecordList =
+                                          List<PillsRecord>
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
-                                          if (listViewPillsRecordList.length > userPillsMap.length) {
-                                            listViewPillsRecordList.forEach((
-                                                userPill) => {
-                                              userPillsMap
-                                                  .add({
-                                                userPill.reference: false
-                                              })
-                                            });
+                                          if (listViewPillsRecordList.length >
+                                              userPillsMap.length) {
+                                            listViewPillsRecordList
+                                                .forEach((userPill) => {
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(
-                                                  0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -1058,50 +1099,56 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
-                                            itemCount: listViewPillsRecordList
-                                                .length,
-                                            itemBuilder: (context,
-                                                listViewIndex) {
+                                            itemCount:
+                                                listViewPillsRecordList.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment: AlignmentDirectional(
+                                                return Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
+                                                        listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (
-                                                            bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[listViewIndex][listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
-                                              );
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -1110,15 +1157,12 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding:
-                                                MediaQuery
-                                                    .of(context)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -1131,8 +1175,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -1158,28 +1202,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             userPillMap.addAll(userPill);
                                           });
 
-                                          for (var userPillMap in userPillMap
-                                              .entries) {
+                                          for (var userPillMap
+                                              in userPillMap.entries) {
                                             if (userPillMap.value) {
                                               checkedPills.add(userPillMap.key);
                                             }
                                           }
 
                                           final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController2.text,
-                                                  'Compartement 2'),
-                                              plannedDate: datePicked2,
-                                              pills: ListBuilder(checkedPills)
-                                          );
+                                              createCompartmentsRecordData(
+                                                  name: valueOrDefault<String>(
+                                                      textController2.text,
+                                                      'Compartement 2'),
+                                                  plannedDate: datePicked2,
+                                                  pills: ListBuilder(
+                                                      checkedPills));
 
-                                          await compartments[1].reference
+                                          await compartments[1]
+                                              .reference
                                               .update(compartmentsUpdateData);
 
                                           await pageViewController.nextPage(
-                                            duration: Duration(
-                                                milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -1187,10 +1232,10 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40,
-                                          color: FlutterFlowTheme
-                                              .secondaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -1219,19 +1264,19 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           0, 30, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[2].name,
@@ -1248,33 +1293,32 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -1282,16 +1326,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -1307,56 +1353,60 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -1364,74 +1414,81 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                              .primaryColor,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        controller: textController3,
+                                                        controller:
+                                                            textController3,
                                                         obscureText: false,
-                                                        decoration: InputDecoration(
+                                                        decoration:
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[2].name,
-                                                          hintStyle: FlutterFlowTheme
-                                                              .bodyText1,
+                                                              compartments[2]
+                                                                  .name,
+                                                          hintStyle:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -1446,54 +1503,58 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -1501,53 +1562,57 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
                                                         await DatePicker
                                                             .showDateTimePicker(
                                                           context,
-                                                          showTitleActions: true,
+                                                          showTitleActions:
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked3 = date);
+                                                                datePicked3 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                .primaryColor,
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
-                                                            dateTimeFormat(
-                                                                'Hm',
+                                                            dateTimeFormat('Hm',
                                                                 datePicked3),
-                                                            style: FlutterFlowTheme
-                                                                .bodyText1,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -1567,7 +1632,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         stream: queryPillsRecord(
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
-                                                  isEqualTo: currentUserReference),
+                                                  isEqualTo:
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -1576,32 +1642,33 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               child: SizedBox(
                                                 width: 50,
                                                 height: 50,
-                                                child: CircularProgressIndicator(
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
                                               ),
                                             );
                                           }
-                                          List<
-                                              PillsRecord> listViewPillsRecordList =
+                                          List<PillsRecord>
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
-                                          if (listViewPillsRecordList.length > userPillsMap.length) {
-                                            listViewPillsRecordList.forEach((
-                                                userPill) => {
-                                              userPillsMap
-                                                  .add({
-                                                userPill.reference: false
-                                              })
-                                            });
+                                          if (listViewPillsRecordList.length >
+                                              userPillsMap.length) {
+                                            listViewPillsRecordList
+                                                .forEach((userPill) => {
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(
-                                                  0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -1616,50 +1683,56 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
-                                            itemCount: listViewPillsRecordList
-                                                .length,
-                                            itemBuilder: (context,
-                                                listViewIndex) {
+                                            itemCount:
+                                                listViewPillsRecordList.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment: AlignmentDirectional(
+                                                return Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
+                                                        listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (
-                                                            bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[listViewIndex][listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
-                                              );
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -1668,15 +1741,12 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding:
-                                                MediaQuery
-                                                    .of(context)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -1689,8 +1759,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -1716,28 +1786,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             userPillMap.addAll(userPill);
                                           });
 
-                                          for (var userPillMap in userPillMap
-                                              .entries) {
+                                          for (var userPillMap
+                                              in userPillMap.entries) {
                                             if (userPillMap.value) {
                                               checkedPills.add(userPillMap.key);
                                             }
                                           }
 
                                           final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController3.text,
-                                                  'Compartement 3'),
-                                              plannedDate: datePicked3,
-                                              pills: ListBuilder(checkedPills)
-                                          );
+                                              createCompartmentsRecordData(
+                                                  name: valueOrDefault<String>(
+                                                      textController3.text,
+                                                      'Compartement 3'),
+                                                  plannedDate: datePicked3,
+                                                  pills: ListBuilder(
+                                                      checkedPills));
 
-                                          await compartments[2].reference
+                                          await compartments[2]
+                                              .reference
                                               .update(compartmentsUpdateData);
 
                                           await pageViewController.nextPage(
-                                            duration: Duration(
-                                                milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -1745,10 +1816,10 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40,
-                                          color: FlutterFlowTheme
-                                              .secondaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -1777,19 +1848,19 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           0, 30, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[3].name,
@@ -1806,33 +1877,32 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -1840,16 +1910,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -1865,56 +1937,60 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -1922,74 +1998,81 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                              .primaryColor,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        controller: textController4,
+                                                        controller:
+                                                            textController4,
                                                         obscureText: false,
-                                                        decoration: InputDecoration(
+                                                        decoration:
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[3].name,
-                                                          hintStyle: FlutterFlowTheme
-                                                              .bodyText1,
+                                                              compartments[3]
+                                                                  .name,
+                                                          hintStyle:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -2004,54 +2087,58 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -2059,53 +2146,57 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
                                                         await DatePicker
                                                             .showDateTimePicker(
                                                           context,
-                                                          showTitleActions: true,
+                                                          showTitleActions:
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked4 = date);
+                                                                datePicked4 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                .primaryColor,
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
-                                                            dateTimeFormat(
-                                                                'Hm',
+                                                            dateTimeFormat('Hm',
                                                                 datePicked4),
-                                                            style: FlutterFlowTheme
-                                                                .bodyText1,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -2125,7 +2216,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         stream: queryPillsRecord(
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
-                                                  isEqualTo: currentUserReference),
+                                                  isEqualTo:
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -2134,32 +2226,33 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               child: SizedBox(
                                                 width: 50,
                                                 height: 50,
-                                                child: CircularProgressIndicator(
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
                                               ),
                                             );
                                           }
-                                          List<
-                                              PillsRecord> listViewPillsRecordList =
+                                          List<PillsRecord>
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
-                                          if (listViewPillsRecordList.length > userPillsMap.length) {
-                                            listViewPillsRecordList.forEach((
-                                                userPill) => {
-                                              userPillsMap
-                                                  .add({
-                                                userPill.reference: false
-                                              })
-                                            });
+                                          if (listViewPillsRecordList.length >
+                                              userPillsMap.length) {
+                                            listViewPillsRecordList
+                                                .forEach((userPill) => {
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(
-                                                  0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -2174,50 +2267,56 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
-                                            itemCount: listViewPillsRecordList
-                                                .length,
-                                            itemBuilder: (context,
-                                                listViewIndex) {
+                                            itemCount:
+                                                listViewPillsRecordList.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment: AlignmentDirectional(
+                                                return Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
+                                                        listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (
-                                                            bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[listViewIndex][listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
-                                              );
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -2226,15 +2325,12 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding:
-                                                MediaQuery
-                                                    .of(context)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -2247,8 +2343,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -2274,28 +2370,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             userPillMap.addAll(userPill);
                                           });
 
-                                          for (var userPillMap in userPillMap
-                                              .entries) {
+                                          for (var userPillMap
+                                              in userPillMap.entries) {
                                             if (userPillMap.value) {
                                               checkedPills.add(userPillMap.key);
                                             }
                                           }
 
                                           final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController4.text,
-                                                  'Compartement 4'),
-                                              plannedDate: datePicked4,
-                                              pills: ListBuilder(checkedPills)
-                                          );
+                                              createCompartmentsRecordData(
+                                                  name: valueOrDefault<String>(
+                                                      textController4.text,
+                                                      'Compartement 4'),
+                                                  plannedDate: datePicked4,
+                                                  pills: ListBuilder(
+                                                      checkedPills));
 
-                                          await compartments[3].reference
+                                          await compartments[3]
+                                              .reference
                                               .update(compartmentsUpdateData);
 
                                           await pageViewController.nextPage(
-                                            duration: Duration(
-                                                milliseconds: 300),
+                                            duration:
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -2303,10 +2400,10 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40,
-                                          color: FlutterFlowTheme
-                                              .secondaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -2335,19 +2432,19 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           0, 30, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[4].name,
@@ -2364,33 +2461,32 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -2398,16 +2494,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -2423,56 +2521,60 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -2480,74 +2582,81 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                              .primaryColor,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
-                                                        controller: textController5,
+                                                        controller:
+                                                            textController5,
                                                         obscureText: false,
-                                                        decoration: InputDecoration(
+                                                        decoration:
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[4].name,
-                                                          hintStyle: FlutterFlowTheme
-                                                              .bodyText1,
+                                                              compartments[4]
+                                                                  .name,
+                                                          hintStyle:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                              color:
-                                                              Color(0x00000000),
+                                                              UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
-                                                              topLeft:
-                                                              Radius.circular(
-                                                                  4.0),
-                                                              topRight:
-                                                              Radius.circular(
-                                                                  4.0),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -2562,54 +2671,58 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsetsDirectional
-                                                .fromSTEB(
-                                                30, 0, 30, 0),
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
-                                                      padding: EdgeInsetsDirectional
-                                                          .fromSTEB(0, 0, 0, 5),
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
-                                                          textAlign: TextAlign
-                                                              .start,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -2617,53 +2730,57 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   ],
                                                 ),
                                                 Row(
-                                                  mainAxisSize: MainAxisSize
-                                                      .max,
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
                                                         await DatePicker
                                                             .showDateTimePicker(
                                                           context,
-                                                          showTitleActions: true,
+                                                          showTitleActions:
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked5 = date);
+                                                                datePicked5 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
-                                                        decoration: BoxDecoration(
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                .primaryColor,
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              10, 12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
-                                                            dateTimeFormat(
-                                                                'Hm',
+                                                            dateTimeFormat('Hm',
                                                                 datePicked5),
-                                                            style: FlutterFlowTheme
-                                                                .bodyText1,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -2683,7 +2800,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         stream: queryPillsRecord(
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
-                                                  isEqualTo: currentUserReference),
+                                                  isEqualTo:
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -2692,32 +2810,33 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               child: SizedBox(
                                                 width: 50,
                                                 height: 50,
-                                                child: CircularProgressIndicator(
+                                                child:
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
                                               ),
                                             );
                                           }
-                                          List<
-                                              PillsRecord> listViewPillsRecordList =
+                                          List<PillsRecord>
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
-                                          if (listViewPillsRecordList.length > userPillsMap.length) {
-                                            listViewPillsRecordList.forEach((
-                                                userPill) => {
-                                              userPillsMap
-                                                  .add({
-                                                userPill.reference: false
-                                              })
-                                            });
+                                          if (listViewPillsRecordList.length >
+                                              userPillsMap.length) {
+                                            listViewPillsRecordList
+                                                .forEach((userPill) => {
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(
-                                                  0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -2732,50 +2851,56 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           return ListView.builder(
-                                            physics: const NeverScrollableScrollPhysics(),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
-                                            itemCount: listViewPillsRecordList
-                                                .length,
-                                            itemBuilder: (context,
-                                                listViewIndex) {
+                                            itemCount:
+                                                listViewPillsRecordList.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment: AlignmentDirectional(
+                                                return Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[listViewIndex][listViewPillsRecord
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
+                                                        listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (
-                                                            bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[listViewIndex][listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
-                                              );
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 0, 30),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -2784,15 +2909,12 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding:
-                                                MediaQuery
-                                                    .of(context)
+                                                padding: MediaQuery.of(context)
                                                     .viewInsets,
                                                 child: Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -2805,8 +2927,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: 150,
                                           height: 40,
                                           color: FlutterFlowTheme.primaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -2832,43 +2954,43 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             userPillMap.addAll(userPill);
                                           });
 
-                                          for (var userPillMap in userPillMap
-                                              .entries) {
+                                          for (var userPillMap
+                                              in userPillMap.entries) {
                                             if (userPillMap.value) {
                                               checkedPills.add(userPillMap.key);
                                             }
                                           }
 
                                           final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController5.text,
-                                                  'Compartement 5'),
-                                              plannedDate: datePicked5,
-                                              pills: ListBuilder(checkedPills)
-                                          );
+                                              createCompartmentsRecordData(
+                                                  name: valueOrDefault<String>(
+                                                      textController5.text,
+                                                      'Compartement 5'),
+                                                  plannedDate: datePicked5,
+                                                  pills: ListBuilder(
+                                                      checkedPills));
 
-                                          await compartments[4].reference
+                                          await compartments[4]
+                                              .reference
                                               .update(compartmentsUpdateData);
 
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  NavBarPage(
-                                                      initialPage: 'Homepage'),
+                                              builder: (context) => NavBarPage(
+                                                  initialPage: 'Homepage'),
                                             ),
-                                                (r) => false,
+                                            (r) => false,
                                           );
                                         },
                                         text: 'Opslaan',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40,
-                                          color: FlutterFlowTheme
-                                              .secondaryColor,
-                                          textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          textStyle: FlutterFlowTheme.subtitle2
+                                              .override(
                                             fontFamily: 'Poppins',
                                             color: Colors.white,
                                             fontSize: 18,
@@ -2888,8 +3010,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                             ),
                           ],
                         );
-                      }
-                  ),
+                      }),
                 ),
                 Align(
                   alignment: AlignmentDirectional(0, 1),
