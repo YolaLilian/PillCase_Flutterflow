@@ -430,6 +430,61 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                 .doc(user.uid)
                                 .update(usersCreateData);
 
+                            final compartmentsCreateData1 =
+                              createCompartmentsRecordData(
+                                name: 'Compartement 1',
+                                user: currentUserReference,
+                                pills: ListBuilder(),
+                                index: 0,
+                              );
+                            await CompartmentsRecord.collection
+                              .doc()
+                              .set(compartmentsCreateData1);
+
+                            final compartmentsCreateData2 =
+                              createCompartmentsRecordData(
+                                name: 'Compartement 2',
+                                user: currentUserReference,
+                                pills: ListBuilder(),
+                                index: 1,
+                              );
+                            await CompartmentsRecord.collection
+                              .doc()
+                              .set(compartmentsCreateData2);
+
+                            final compartmentsCreateData3 =
+                            createCompartmentsRecordData(
+                              name: 'Compartement 3',
+                              user: currentUserReference,
+                              pills: ListBuilder(),
+                              index: 2,
+                            );
+                            await CompartmentsRecord.collection
+                              .doc()
+                              .set(compartmentsCreateData3);
+
+                            final compartmentsCreateData4 =
+                              createCompartmentsRecordData(
+                                name: 'Compartement 4',
+                                user: currentUserReference,
+                                pills: ListBuilder(),
+                                index: 3,
+                              );
+                            await CompartmentsRecord.collection
+                              .doc()
+                              .set(compartmentsCreateData4);
+
+                            final compartmentsCreateData5 =
+                              createCompartmentsRecordData(
+                                name: 'Compartement 5',
+                                user: currentUserReference,
+                                pills: ListBuilder(),
+                                index: 4,
+                              );
+                            await CompartmentsRecord.collection
+                              .doc()
+                              .set(compartmentsCreateData5);
+
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
