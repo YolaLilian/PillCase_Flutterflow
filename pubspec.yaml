@@ -47,6 +47,8 @@ dependencies:
   table_calendar: 2.3.3
   timeago: 3.1.0
   url_launcher: 6.0.15
+  flutter_bluetooth_serial: ^0.3.2
+  permission_handler: ^8.3.0
   flutter_local_notifications: ^9.2.0
   flutter_native_timezone: ^2.0.0
 

@@ -15,6 +15,10 @@ import '../main.dart';
 
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 // FlutterLocalNotificationsPlugin();
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:permission_handler/permission_handler.dart';
 
 class EditCompartmentWidget extends StatefulWidget {
   const EditCompartmentWidget({
@@ -505,6 +509,45 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               notificationTitle, datePicked);
                           await widget.name.reference
                               .update(compartmentsUpdateData);
+
+                          String data = "Dit is een ESP test";
+                          String pillcaseAddress =
+                              "00:1B:66:CB:68:F5"; // placeholder (earbuds)
+                              // "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                          var status = await Permission
+                            .bluetooth.status;
+
+                          if (status.isDenied) {
+                            var isBool = await Permission.bluetooth.shouldShowRequestRationale;
+                            print(status);
+                          }
+
+                          if (status.isGranted) {
+                            try {
+                            FlutterBluetoothSerial.instance
+                              .bondDeviceAtAddress(
+                                  pillcaseAddress);
+
+                            BluetoothConnection connection =
+                              await BluetoothConnection
+                                .toAddress(pillcaseAddress);
+                            print('Connected to the pillcase');
+
+                            connection.output.add(Uint8List
+                                .fromList(utf8.encode(data +
+                                    "\r\n"))); // Sending data
+                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                            connection.finish();
+                            print('Connection stopped.');
+                            } catch (exception) {
+                              //do something?
+                              print(
+                                  'Cannot connect, exception occured');
+                            }
+                          }
+
                           await Navigator.push(
                             context,
                             MaterialPageRoute(

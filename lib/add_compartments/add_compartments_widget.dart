@@ -8,9 +8,12 @@ import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-// import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddCompartmentsWidget extends StatefulWidget {
   const AddCompartmentsWidget({Key key}) : super(key: key);
@@ -689,11 +692,51 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               .reference
                                               .update(compartmentsUpdateData);
 
+                                          String data = "Dit is een ESP test";
+                                          String pillcaseAddress =
+                                              // placeholder (earbuds or other device)
+                                              "00:1B:66:CB:68:F5";
+                                              // "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                                          var status = await Permission
+                                              .bluetooth.status;
+
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth.request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted){
+
+                                            try {
+                                            FlutterBluetoothSerial.instance
+                                                .bondDeviceAtAddress(
+                                                    pillcaseAddress);
+
+                                            BluetoothConnection connection =
+                                                await BluetoothConnection
+                                                    .toAddress(pillcaseAddress);
+                                            print('Connected to the pillcase');
+
+                                            connection.output.add(Uint8List
+                                                .fromList(utf8.encode(data +
+                                                    "\r\n"))); // Sending data
+                                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                            connection.finish();
+                                            print('Connection stopped.');
+                                            } catch (exception) {
+                                              //do something?
+                                              print(
+                                                  'Cannot connect, exception occured');
+                                            }
+                                          }
+
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
+
                                         },
                                         text: 'Opslaan',
                                         options: FFButtonOptions(
@@ -1293,6 +1336,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           await compartments[1]
                                               .reference
                                               .update(compartmentsUpdateData);
+
+                                          try {
+                                            String data = "Dit is een ESP test";
+                                            String pillcaseAddress =
+                                                "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                                            BluetoothConnection connection =
+                                                await BluetoothConnection
+                                                    .toAddress(pillcaseAddress);
+                                            print('Connected to the pillcase');
+
+                                            connection.output.add(Uint8List
+                                                .fromList(utf8.encode(data +
+                                                    "\r\n"))); // Sending data
+                                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                            connection.finish();
+                                            print('Connection stopped.');
+                                          } catch (exception) {
+                                            //do something?
+                                            print(
+                                                'Cannot connect, exception occured');
+                                          }
 
                                           await pageViewController.nextPage(
                                             duration:
@@ -1899,6 +1965,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               .reference
                                               .update(compartmentsUpdateData);
 
+                                          try {
+                                            String data = "Dit is een ESP test";
+                                            String pillcaseAddress =
+                                                "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                                            BluetoothConnection connection =
+                                                await BluetoothConnection
+                                                    .toAddress(pillcaseAddress);
+                                            print('Connected to the pillcase');
+
+                                            connection.output.add(Uint8List
+                                                .fromList(utf8.encode(data +
+                                                    "\r\n"))); // Sending data
+                                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                            connection.finish();
+                                            print('Connection stopped.');
+                                          } catch (exception) {
+                                            //do something?
+                                            print(
+                                                'Cannot connect, exception occured');
+                                          }
+
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -2504,6 +2593,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               .reference
                                               .update(compartmentsUpdateData);
 
+                                          try {
+                                            String data = "Dit is een ESP test";
+                                            String pillcaseAddress =
+                                                "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                                            BluetoothConnection connection =
+                                                await BluetoothConnection
+                                                    .toAddress(pillcaseAddress);
+                                            print('Connected to the pillcase');
+
+                                            connection.output.add(Uint8List
+                                                .fromList(utf8.encode(data +
+                                                    "\r\n"))); // Sending data
+                                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                            connection.finish();
+                                            print('Connection stopped.');
+                                          } catch (exception) {
+                                            //do something?
+                                            print(
+                                                'Cannot connect, exception occured');
+                                          }
+
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -3108,6 +3220,29 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           await compartments[4]
                                               .reference
                                               .update(compartmentsUpdateData);
+
+                                          try {
+                                            String data = "Dit is een ESP test";
+                                            String pillcaseAddress =
+                                                "C8:C9:A3:CA:99:86"; //We should get this address from app settings
+
+                                            BluetoothConnection connection =
+                                                await BluetoothConnection
+                                                    .toAddress(pillcaseAddress);
+                                            print('Connected to the pillcase');
+
+                                            connection.output.add(Uint8List
+                                                .fromList(utf8.encode(data +
+                                                    "\r\n"))); // Sending data
+                                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                            connection.finish();
+                                            print('Connection stopped.');
+                                          } catch (exception) {
+                                            //do something?
+                                            print(
+                                                'Cannot connect, exception occured');
+                                          }
 
                                           await Navigator.pushAndRemoveUntil(
                                             context,
