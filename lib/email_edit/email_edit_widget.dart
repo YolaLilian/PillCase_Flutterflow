@@ -1,14 +1,10 @@
 import 'package:pilly_case/auth/auth_util.dart';
 import '../backend/backend.dart';
-
 import '../main.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../settings/settings_widget.dart';
 
 class EmailEditWidget extends StatefulWidget {
   const EmailEditWidget({Key key}) : super(key: key);

@@ -3,10 +3,8 @@ import '../components/reset_password_widget.dart';
 import '../edit_medicin_link/edit_medicin_link_widget.dart';
 import '../email_edit/email_edit_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../start_screen/start_screen_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key key}) : super(key: key);
