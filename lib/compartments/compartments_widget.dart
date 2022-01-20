@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CompartmentsWidget extends StatefulWidget {
   const CompartmentsWidget({Key key}) : super(key: key);
@@ -86,6 +85,7 @@ class _CompartmentsWidgetState extends State<CompartmentsWidget> {
                         listViewCompartmentsCompartmentsRecordList =
                         snapshot.data;
                     return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,

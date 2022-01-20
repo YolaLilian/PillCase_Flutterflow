@@ -5,7 +5,7 @@ import '../components/pill_card_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../flutter_flow/flutter_flow_calendar.dart';
 
 class HomepageWidget extends StatefulWidget {
   const HomepageWidget({Key key}) : super(key: key);
@@ -16,6 +16,10 @@ class HomepageWidget extends StatefulWidget {
 
 class _HomepageWidgetState extends State<HomepageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var now = getCurrentTimestamp;
+  var today = DateTimeRange(
+      start:DateTime.now().startOfDay,
+      end: DateTime.now().endOfDay);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 60, 0, 20),
                             child: Text(
-                              dateTimeFormat('MMMMEEEEd', getCurrentTimestamp),
+                              dateTimeFormat('MMMMEEEEd', now),
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.title3,
                             ),
@@ -59,7 +63,11 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                 StreamBuilder<List<CompartmentsRecord>>(
                   stream: queryCompartmentsRecord(
                     queryBuilder: (compartmentsRecord) => compartmentsRecord
-                        .where('user', isEqualTo: currentUserReference),
+                        .where('user', isEqualTo: currentUserReference)
+                        .where('planned_date',
+                            isLessThan: today.end)
+                        .where('planned_date',
+                            isGreaterThan: today.start),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -118,7 +126,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                         0, 0, 0, 10),
                                     child: Text(
                                       dateTimeFormat(
-                                          'relative',
+                                          'MMMMEEEEd',
                                           listViewCompartmentsRecord
                                               .plannedDate),
                                       style: FlutterFlowTheme.subtitle2,
