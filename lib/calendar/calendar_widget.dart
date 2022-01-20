@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/empty_compartment_list_widget.dart';
