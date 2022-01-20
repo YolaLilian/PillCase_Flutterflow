@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../backend/schema/notification.dart';
 
 class EditCompartmentWidget extends StatefulWidget {
   const EditCompartmentWidget({
@@ -30,11 +31,26 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String notificationTitle = 'No Title';
+  String notificationBody = 'No Body';
+  String notificationData = 'No Data';
+
   @override
   void initState() {
     super.initState();
     textController = TextEditingController(text: widget.name.name);
+
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+    
+    firebaseMessaging.streamCtlr.stream.listen(_changeData);
+    firebaseMessaging.bodyCtlr.stream.listen(_changeBody);
+    firebaseMessaging.titleCtlr.stream.listen(_changeTitle);
   }
+
+  _changeData(String msg) => setState(() => notificationData = msg);
+  _changeBody(String msg) => setState(() => notificationBody = msg);
+  _changeTitle(String msg) => setState(() => notificationTitle = msg);
 
   @override
   Widget build(BuildContext context) {
@@ -436,6 +452,25 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                       ),
                     ),
                   ),
+                  Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          notificationTitle,
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        Text(
+                          notificationBody,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        Text(
+                          notificationData,
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ],
+                    )),
                   Align(
                     alignment: AlignmentDirectional(0, 0),
                     child: Padding(
