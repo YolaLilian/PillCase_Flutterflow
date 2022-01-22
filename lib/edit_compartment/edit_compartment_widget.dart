@@ -1,5 +1,4 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/add_pill_modal_widget.dart';
@@ -10,11 +9,12 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
+// import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import '../main.dart';
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+// FlutterLocalNotificationsPlugin();
 
 class EditCompartmentWidget extends StatefulWidget {
   const EditCompartmentWidget({
@@ -49,7 +49,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   Future<void> _scheduleCompartmentTime(
       String title, DateTime compartmentTime) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
+        widget.name.index,
         title,
         'Het is tijd om uw medicijn(en) in te nemen',
         getTZDateTime(compartmentTime),

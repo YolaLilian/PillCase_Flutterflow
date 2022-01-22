@@ -8,6 +8,9 @@ import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+// import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AddCompartmentsWidget extends StatefulWidget {
   const AddCompartmentsWidget({Key key}) : super(key: key);
@@ -38,6 +41,35 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
     textController3 = TextEditingController();
     textController4 = TextEditingController();
     textController5 = TextEditingController();
+  }
+
+  Future<void> _scheduleCompartmentTime(
+      int id, String title, DateTime compartmentTime) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        'Het is tijd om uw medicijn(en) in te nemen',
+        getTZDateTime(compartmentTime),
+        const NotificationDetails(
+          android: AndroidNotificationDetails('daily notification channel id',
+              'daily notification channel name',
+              channelDescription: 'daily notification description'),
+        ),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time);
+  }
+
+  tz.TZDateTime getTZDateTime(DateTime compartmentTime) {
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local,
+        compartmentTime.year,
+        compartmentTime.month,
+        compartmentTime.day,
+        compartmentTime.hour,
+        compartmentTime.minute);
+    return scheduledDate;
   }
 
   @override
@@ -496,13 +528,14 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
-                                            userPillsMap[index-1][
-                                            listViewPillsRecordList[index-1]
-                                                .reference] = false;
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
+                                            userPillsMap[index - 1][
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
@@ -641,6 +674,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   plannedDate: datePicked1,
                                                   pills: ListBuilder(
                                                       checkedPills));
+
+                                          if (datePicked1 != null) {
+                                            var notificationId = 0;
+                                            var notificationTitle =
+                                                "Open ${textController1.text.isEmpty ? "Compartement 1" : textController1.text} (box 1)";
+                                            _scheduleCompartmentTime(
+                                                notificationId,
+                                                notificationTitle,
+                                                datePicked1);
+                                          }
 
                                           await compartments[0]
                                               .reference
@@ -1094,8 +1137,9 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       .length;
                                               index >= 1;
                                               index--) {
-                                            userPillsMap[index-1][
-                                                listViewPillsRecordList[index-1]
+                                            userPillsMap[index - 1][
+                                                listViewPillsRecordList[
+                                                        index - 1]
                                                     .reference] = false;
                                           }
 
@@ -1235,6 +1279,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   plannedDate: datePicked2,
                                                   pills: ListBuilder(
                                                       checkedPills));
+
+                                          if (datePicked2 != null) {
+                                            var notificationId = 1;
+                                            var notificationTitle =
+                                                "Open ${textController2.text.isEmpty ? "Compartement 2" : textController2.text} (box 2)";
+                                            _scheduleCompartmentTime(
+                                                notificationId,
+                                                notificationTitle,
+                                                datePicked1);
+                                          }
 
                                           await compartments[1]
                                               .reference
@@ -1684,13 +1738,14 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
-                                            userPillsMap[index-1][
-                                            listViewPillsRecordList[index-1]
-                                                .reference] = false;
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
+                                            userPillsMap[index - 1][
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
@@ -1829,6 +1884,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   plannedDate: datePicked3,
                                                   pills: ListBuilder(
                                                       checkedPills));
+
+                                          if (datePicked3 != null) {
+                                            var notificationId = 2;
+                                            var notificationTitle =
+                                                "Open ${textController3.text.isEmpty ? "Compartement 3" : textController3.text} (box 3)";
+                                            _scheduleCompartmentTime(
+                                                notificationId,
+                                                notificationTitle,
+                                                datePicked1);
+                                          }
 
                                           await compartments[2]
                                               .reference
@@ -2278,13 +2343,14 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
-                                            userPillsMap[index-1][
-                                            listViewPillsRecordList[index-1]
-                                                .reference] = false;
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
+                                            userPillsMap[index - 1][
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
@@ -2423,6 +2489,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   plannedDate: datePicked4,
                                                   pills: ListBuilder(
                                                       checkedPills));
+
+                                          if (datePicked4 != null) {
+                                            var notificationId = 3;
+                                            var notificationTitle =
+                                                "Open ${textController4.text.isEmpty ? "Compartement 4" : textController4.text} (box 4)";
+                                            _scheduleCompartmentTime(
+                                                notificationId,
+                                                notificationTitle,
+                                                datePicked1);
+                                          }
 
                                           await compartments[3]
                                               .reference
@@ -2872,13 +2948,14 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
-                                            userPillsMap[index-1][
-                                            listViewPillsRecordList[index-1]
-                                                .reference] = false;
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
+                                            userPillsMap[index - 1][
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
@@ -3017,6 +3094,16 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                   plannedDate: datePicked5,
                                                   pills: ListBuilder(
                                                       checkedPills));
+
+                                          if (datePicked5 != null) {
+                                            var notificationId = 4;
+                                            var notificationTitle =
+                                                "Open ${textController5.text.isEmpty ? "Compartement 5" : textController5.text} (box 5)";
+                                            _scheduleCompartmentTime(
+                                                notificationId,
+                                                notificationTitle,
+                                                datePicked1);
+                                          }
 
                                           await compartments[4]
                                               .reference
