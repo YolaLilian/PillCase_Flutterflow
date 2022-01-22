@@ -35,12 +35,15 @@ class EditCompartmentWidget extends StatefulWidget {
 class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   DateTime datePicked;
   TextEditingController textController;
+  TextEditingController timeController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController(text: widget.name.name);
+    timeController = TextEditingController(
+        text: dateTimeFormat('Hm', widget.name.plannedDate));
   }
 
   Future<void> _scheduleCompartmentTime(
@@ -279,37 +282,64 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await DatePicker.showDateTimePicker(
-                                      context,
-                                      showTitleActions: true,
-                                      onConfirm: (date) {
-                                        setState(() => datePicked = date);
-                                      },
-                                      currentTime: widget.time.plannedDate,
-                                    );
-                                  },
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 12, 0, 0),
-                                      child: Text(
-                                        dateTimeFormat('Hm', datePicked),
-                                        style: FlutterFlowTheme.bodyText1,
-                                      ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.primaryColor,
                                     ),
                                   ),
-                                ),
+                                  child: TextFormField(
+                                    onTap: () async {
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      await DatePicker.showDateTimePicker(
+                                        context,
+                                        showTitleActions: true,
+                                        onConfirm: (date) {
+                                          timeController.text =
+                                              dateTimeFormat('Hm', date);
+                                          setState(() => datePicked = date);
+                                        },
+                                        currentTime: widget.time.plannedDate,
+                                      );
+                                    },
+                                    controller: timeController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: dateTimeFormat(
+                                          'Hm', widget.name.plannedDate),
+                                      hintStyle: FlutterFlowTheme.bodyText1,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 0, 0),
+                                    ),
+                                    style: FlutterFlowTheme.bodyText1,
+                                  ),
+                                )
                               ],
                             ),
                           ],
