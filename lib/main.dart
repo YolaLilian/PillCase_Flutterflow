@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -12,23 +16,33 @@ import 'calendar/calendar_widget.dart';
 import 'compartments/compartments_widget.dart';
 import 'homepage/homepage_widget.dart';
 import 'settings/settings_widget.dart';
-
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-
   const AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings("@mipmap/ic_launcher");
+      AndroidInitializationSettings("@mipmap/ic_launcher");
 
   final InitializationSettings initializationSettings =
-  InitializationSettings(android: initializationSettingsAndroid);
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await _configureLocalTimeZone();
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-
   runApp(MyApp());
+}
+
+Future<void> _configureLocalTimeZone() async {
+  if (kIsWeb || Platform.isLinux) {
+    return;
+  }
+  tz.initializeTimeZones();
+  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
 
 class MyApp extends StatefulWidget {
@@ -58,8 +72,6 @@ class _MyAppState extends State<MyApp> {
 
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
