@@ -47,6 +47,7 @@ dependencies:
   table_calendar: 2.3.3
   timeago: 3.1.0
   url_launcher: 6.0.15
+  flutter_local_notifications: ^9.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
