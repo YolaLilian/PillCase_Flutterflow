@@ -43,27 +43,13 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
     textController = TextEditingController(text: widget.name.name);
   }
 
-  Future<void> _zonedScheduleNotification() async {
+  Future<void> _scheduleCompartmentTime(
+      String title, DateTime compartmentTime) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'scheduled title',
-        'scheduled body',
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails(
-                'your channel id', 'your channel name',
-                channelDescription: 'your channel description')),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
-  }
-
-  Future<void> _scheduleDailyTenAMNotification() async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-        'daily scheduled notification title',
-        'daily scheduled notification body',
-        _nextInstanceOfTenAM(),
+        title,
+        'Het is tijd om uw medicijn(en) in te nemen',
+        getTZDateTime(compartmentTime),
         const NotificationDetails(
           android: AndroidNotificationDetails('daily notification channel id',
               'daily notification channel name',
@@ -75,13 +61,14 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
         matchDateTimeComponents: DateTimeComponents.time);
   }
 
-  tz.TZDateTime _nextInstanceOfTenAM() {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 10);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
+  tz.TZDateTime getTZDateTime(DateTime compartmentTime) {
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local,
+        compartmentTime.year,
+        compartmentTime.month,
+        compartmentTime.day,
+        compartmentTime.hour,
+        compartmentTime.minute);
     return scheduledDate;
   }
 
@@ -423,7 +410,6 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        _zonedScheduleNotification();
                         await showModalBottomSheet(
                           isScrollControlled: true,
                           context: context,
@@ -482,6 +468,11 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                   name: textController.text,
                                   plannedDate: datePicked,
                                   pills: ListBuilder(checkedPills));
+
+                          var notificationTitle =
+                              "Open ${textController.text} (box ${widget.name.index + 1})";
+                          _scheduleCompartmentTime(
+                              notificationTitle, datePicked);
                           await widget.name.reference
                               .update(compartmentsUpdateData);
                           await Navigator.push(
