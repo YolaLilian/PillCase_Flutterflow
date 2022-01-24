@@ -61,7 +61,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time);
+        matchDateTimeComponents: DateTimeComponents.dateAndTime);
   }
 
   tz.TZDateTime getTZDateTime(DateTime compartmentTime) {

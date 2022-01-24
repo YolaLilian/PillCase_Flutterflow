@@ -58,7 +58,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time);
+        matchDateTimeComponents: DateTimeComponents.dateAndTime);
   }
 
   tz.TZDateTime getTZDateTime(DateTime compartmentTime) {
