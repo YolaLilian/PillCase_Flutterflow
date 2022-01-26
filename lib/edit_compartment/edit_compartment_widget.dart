@@ -64,7 +64,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
         ),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
+        UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dateAndTime);
   }
 
@@ -109,7 +109,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         Expanded(
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                            EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -134,7 +134,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                            EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
@@ -170,7 +170,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                    MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -179,7 +179,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Naam compartement (optioneel)',
                                       textAlign: TextAlign.start,
                                       style:
-                                          FlutterFlowTheme.subtitle1.override(
+                                      FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -195,7 +195,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  MediaQuery.of(context).size.width * 0.8,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.tertiaryColor,
@@ -230,8 +230,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                         ),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              10, 0, 0, 0),
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
@@ -263,7 +263,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                    MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -272,7 +272,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Tijdstip van openen compartement',
                                       textAlign: TextAlign.start,
                                       style:
-                                          FlutterFlowTheme.subtitle1.override(
+                                      FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -288,7 +288,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  MediaQuery.of(context).size.width * 0.8,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.tertiaryColor,
@@ -338,8 +338,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                         ),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              10, 0, 0, 0),
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
@@ -413,28 +413,28 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           itemCount: listViewPillsRecordList.length,
                           itemBuilder: (context, listViewIndex) {
                             final listViewPillsRecord =
-                                listViewPillsRecordList[listViewIndex];
+                            listViewPillsRecordList[listViewIndex];
 
                             return StatefulBuilder(
                                 builder: (context, setState) {
-                              return Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: CheckboxListTile(
-                                  controlAffinity:
+                                  return Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: CheckboxListTile(
+                                      controlAffinity:
                                       ListTileControlAffinity.leading,
-                                  title: Text(listViewPillsRecord.name),
-                                  value: userPillsMap[listViewIndex]
+                                      title: Text(listViewPillsRecord.name),
+                                      value: userPillsMap[listViewIndex]
                                       [listViewPillsRecord.reference],
-                                  onChanged: (bool newValue) {
-                                    setState(() {
-                                      userPillsMap[listViewIndex]
-                                              [listViewPillsRecord.reference] =
-                                          newValue;
-                                    });
-                                  },
-                                ),
-                              );
-                            });
+                                      onChanged: (bool newValue) {
+                                        setState(() {
+                                          userPillsMap[listViewIndex]
+                                          [listViewPillsRecord.reference] =
+                                              newValue;
+                                        });
+                                      },
+                                    ),
+                                  );
+                                });
                           },
                         );
                       },
@@ -452,7 +452,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               padding: MediaQuery.of(context).viewInsets,
                               child: Container(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.4,
+                                MediaQuery.of(context).size.height * 0.4,
                                 child: AddPillModalWidget(),
                               ),
                             );
@@ -484,76 +484,82 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          var userPillMap = {};
-                          var checkedPills = [];
 
-                          userPillsMap.forEach((userPill) {
-                            userPillMap.addAll(userPill);
-                          });
-
-                          for (var userPillMap in userPillMap.entries) {
-                            if (userPillMap.value) {
-                              checkedPills.add(userPillMap.key);
-                            }
-                          }
-
-                          final compartmentsUpdateData =
-                              createCompartmentsRecordData(
-                                  name: textController.text,
-                                  plannedDate: datePicked,
-                                  pills: ListBuilder(checkedPills));
-
-                          var notificationTitle =
-                              "Open ${textController.text} (box ${widget.name.index + 1})";
-                          _scheduleCompartmentTime(
-                              notificationTitle, datePicked);
-                          await widget.name.reference
-                              .update(compartmentsUpdateData);
-
-                          String data = "Dit is een ESP test";
-                          String pillcaseAddress =
-                              "00:1B:66:CB:68:F5"; // placeholder (earbuds)
-                              // "C8:C9:A3:CA:99:86"; //We should get this address from app settings
-
-                          var status = await Permission
-                            .bluetooth.status;
+                          var status = await Permission.bluetooth.status;
 
                           if (status.isDenied) {
-                            var isBool = await Permission.bluetooth.shouldShowRequestRationale;
+                            status = await Permission.bluetooth.request();
                             print(status);
                           }
 
                           if (status.isGranted) {
                             try {
-                            FlutterBluetoothSerial.instance
-                              .bondDeviceAtAddress(
+                              String pillcaseAddress = "C8:C9:A3:CA:99:86";
+
+                              var userPillMap = {};
+                              var checkedPills = [];
+
+                              userPillsMap.forEach((userPill) {
+                                userPillMap.addAll(userPill);
+                              });
+
+                              for (var userPillMap in userPillMap.entries) {
+                                if (userPillMap.value) {
+                                  checkedPills.add(userPillMap.key);
+                                }
+                              }
+
+                              final compartmentsUpdateData =
+                              createCompartmentsRecordData(
+                                  name: textController.text,
+                                  plannedDate: datePicked,
+                                  pills: ListBuilder(checkedPills));
+
+                              var notificationTitle =
+                                  "Open ${textController.text} (box ${widget.name.index + 1})";
+                              _scheduleCompartmentTime(
+                                  notificationTitle, datePicked);
+                              await widget.name.reference
+                                  .update(compartmentsUpdateData);
+
+                              String data = "";
+                              if (widget.name.plannedDate == null) {
+                                data =
+                                "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                              } else if (widget.name.plannedDate != null) {
+                                data =
+                                "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                              }
+                              FlutterBluetoothSerial.instance
+                                  .bondDeviceAtAddress(pillcaseAddress);
+
+                              BluetoothConnection connection =
+                              await BluetoothConnection.toAddress(
                                   pillcaseAddress);
+                              print('Connected to the pillcase');
 
-                            BluetoothConnection connection =
-                              await BluetoothConnection
-                                .toAddress(pillcaseAddress);
-                            print('Connected to the pillcase');
+                              connection.output.add(Uint8List.fromList(
+                                  utf8.encode(data + "\r\n"))); // Sending data
+                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
-                            connection.output.add(Uint8List
-                                .fromList(utf8.encode(data +
-                                    "\r\n"))); // Sending data
-                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+                              connection.finish();
+                              print('Connection stopped.');
 
-                            connection.finish();
-                            print('Connection stopped.');
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditedCompartmentWidget(),
+                                ),
+                              );
                             } catch (exception) {
                               //do something?
-                              print(
-                                  'Cannot connect, exception occured');
+                              print('Cannot connect, exception occured');
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("Geen connectie kunnen maken met de pillendoos"),
+                              ));
                             }
                           }
-
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditedCompartmentWidget(),
-                            ),
-                          );
                         },
                         text: 'Bewerken',
                         options: FFButtonOptions(
