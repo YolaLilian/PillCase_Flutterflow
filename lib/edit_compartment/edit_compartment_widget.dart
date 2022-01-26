@@ -1,3 +1,4 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/add_pill_modal_widget.dart';
@@ -8,6 +9,12 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import '../main.dart';
+
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+// FlutterLocalNotificationsPlugin();
 
 class EditCompartmentWidget extends StatefulWidget {
   const EditCompartmentWidget({
@@ -28,12 +35,44 @@ class EditCompartmentWidget extends StatefulWidget {
 class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
   DateTime datePicked;
   TextEditingController textController;
+  TextEditingController timeController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController(text: widget.name.name);
+    timeController = TextEditingController(
+        text: dateTimeFormat('Hm', widget.name.plannedDate));
+  }
+
+  Future<void> _scheduleCompartmentTime(
+      String title, DateTime compartmentTime) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        widget.name.index,
+        title,
+        'Het is tijd om uw medicijn(en) in te nemen',
+        getTZDateTime(compartmentTime),
+        const NotificationDetails(
+          android: AndroidNotificationDetails('daily notification channel id',
+              'daily notification channel name',
+              channelDescription: 'daily notification description'),
+        ),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dateAndTime);
+  }
+
+  tz.TZDateTime getTZDateTime(DateTime compartmentTime) {
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local,
+        compartmentTime.year,
+        compartmentTime.month,
+        compartmentTime.day,
+        compartmentTime.hour,
+        compartmentTime.minute);
+    return scheduledDate;
   }
 
   @override
@@ -48,14 +87,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
           child: Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * 1,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.tertiaryColor,
             ),
@@ -72,7 +105,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         Expanded(
                           child: Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +130,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                                EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
@@ -133,10 +166,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                    MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width * 0.8,
+                                        MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -145,7 +175,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Naam compartement (optioneel)',
                                       textAlign: TextAlign.start,
                                       style:
-                                      FlutterFlowTheme.subtitle1.override(
+                                          FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -161,10 +191,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               children: [
                                 Container(
                                   width:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width * 0.8,
+                                      MediaQuery.of(context).size.width * 0.8,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.tertiaryColor,
@@ -199,8 +226,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                         ),
                                       ),
                                       contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 0, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
@@ -232,10 +259,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                    MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width * 0.8,
+                                        MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -244,7 +268,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Tijdstip van openen compartement',
                                       textAlign: TextAlign.start,
                                       style:
-                                      FlutterFlowTheme.subtitle1.override(
+                                          FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -258,40 +282,64 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await DatePicker.showDateTimePicker(
-                                      context,
-                                      showTitleActions: true,
-                                      onConfirm: (date) {
-                                        setState(() => datePicked = date);
-                                      },
-                                      currentTime: widget.time.plannedDate,
-                                    );
-                                  },
-                                  child: Container(
-                                    width:
-                                    MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width * 0.8,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 12, 0, 0),
-                                      child: Text(
-                                        dateTimeFormat('Hm', datePicked),
-                                        style: FlutterFlowTheme.bodyText1,
-                                      ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.primaryColor,
                                     ),
                                   ),
-                                ),
+                                  child: TextFormField(
+                                    onTap: () async {
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      await DatePicker.showDateTimePicker(
+                                        context,
+                                        showTitleActions: true,
+                                        onConfirm: (date) {
+                                          timeController.text =
+                                              dateTimeFormat('Hm', date);
+                                          setState(() => datePicked = date);
+                                        },
+                                        currentTime: widget.time.plannedDate,
+                                      );
+                                    },
+                                    controller: timeController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: dateTimeFormat(
+                                          'Hm', widget.name.plannedDate),
+                                      hintStyle: FlutterFlowTheme.bodyText1,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              10, 0, 0, 0),
+                                    ),
+                                    style: FlutterFlowTheme.bodyText1,
+                                  ),
+                                )
                               ],
                             ),
                           ],
@@ -301,10 +349,9 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                   ),
                   StreamBuilder<List<CompartmentsRecord>>(
                     stream: queryCompartmentsRecord(
-                      queryBuilder: (compartmentRecord) =>
-                          compartmentRecord
-                              .where('user', isEqualTo: currentUserReference)
-                              .where("index", isEqualTo: widget.name.index),
+                      queryBuilder: (compartmentRecord) => compartmentRecord
+                          .where('user', isEqualTo: currentUserReference)
+                          .where("index", isEqualTo: widget.name.index),
                     ),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -329,9 +376,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(30, 0, 30, 30),
                     child: StreamBuilder<List<PillsRecord>>(
                       stream: queryPillsRecord(
-                        queryBuilder: (pillsRecord) =>
-                            pillsRecord.where('user',
-                                isEqualTo: currentUserReference),
+                        queryBuilder: (pillsRecord) => pillsRecord.where('user',
+                            isEqualTo: currentUserReference),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -349,14 +395,11 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         List<PillsRecord> listViewPillsRecordList =
                             snapshot.data;
 
-
                         listViewPillsRecordList.forEach((userPill) =>
-                            userPillsMap
-                                .add({
+                            userPillsMap.add({
                               userPill.reference: compartmentPillReferences
                                   .contains(userPill.reference)
                             }));
-
 
                         return ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -366,28 +409,28 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           itemCount: listViewPillsRecordList.length,
                           itemBuilder: (context, listViewIndex) {
                             final listViewPillsRecord =
-                            listViewPillsRecordList[listViewIndex];
+                                listViewPillsRecordList[listViewIndex];
 
                             return StatefulBuilder(
                                 builder: (context, setState) {
-                                  return Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: CheckboxListTile(
-                                      controlAffinity: ListTileControlAffinity
-                                          .leading,
-                                      title: Text(listViewPillsRecord.name),
-                                      value: userPillsMap[listViewIndex][listViewPillsRecord
-                                          .reference],
-                                      onChanged: (bool newValue) {
-                                        setState(() {
-                                          userPillsMap[listViewIndex][listViewPillsRecord
-                                              .reference] = newValue;
-                                        });
-                                      },
-                                    ),
-                                  );
-                                }
-                            );
+                              return Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: CheckboxListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  title: Text(listViewPillsRecord.name),
+                                  value: userPillsMap[listViewIndex]
+                                      [listViewPillsRecord.reference],
+                                  onChanged: (bool newValue) {
+                                    setState(() {
+                                      userPillsMap[listViewIndex]
+                                              [listViewPillsRecord.reference] =
+                                          newValue;
+                                    });
+                                  },
+                                ),
+                              );
+                            });
                           },
                         );
                       },
@@ -402,15 +445,10 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           context: context,
                           builder: (context) {
                             return Padding(
-                              padding: MediaQuery
-                                  .of(context)
-                                  .viewInsets,
+                              padding: MediaQuery.of(context).viewInsets,
                               child: Container(
                                 height:
-                                MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.4,
+                                    MediaQuery.of(context).size.height * 0.4,
                                 child: AddPillModalWidget(),
                               ),
                             );
@@ -456,11 +494,15 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           }
 
                           final compartmentsUpdateData =
-                          createCompartmentsRecordData(
-                            name: textController.text,
-                            plannedDate: datePicked,
-                            pills: ListBuilder(checkedPills)
-                          );
+                              createCompartmentsRecordData(
+                                  name: textController.text,
+                                  plannedDate: datePicked,
+                                  pills: ListBuilder(checkedPills));
+
+                          var notificationTitle =
+                              "Open ${textController.text} (box ${widget.name.index + 1})";
+                          _scheduleCompartmentTime(
+                              notificationTitle, datePicked);
                           await widget.name.reference
                               .update(compartmentsUpdateData);
                           await Navigator.push(
