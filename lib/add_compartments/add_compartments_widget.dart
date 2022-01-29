@@ -83,6 +83,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
     // var compartmentPillReferences;
     var userPillsMap = [];
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
       body: SafeArea(
