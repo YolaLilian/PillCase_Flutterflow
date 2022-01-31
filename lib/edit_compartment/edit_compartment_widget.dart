@@ -487,9 +487,9 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                             userPillMap.addAll(userPill);
                           });
 
-                          for (var userPillMap in userPillMap.entries) {
-                            if (userPillMap.value) {
-                              checkedPills.add(userPillMap.key);
+                          for (var map in userPillMap.entries) {
+                            if (map.value) {
+                              checkedPills.add(map.key);
                             }
                           }
 

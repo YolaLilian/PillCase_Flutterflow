@@ -1294,7 +1294,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             _scheduleCompartmentTime(
                                                 notificationId,
                                                 notificationTitle,
-                                                datePicked1);
+                                                datePicked2);
                                           }
 
                                           await compartments[1]
@@ -1899,7 +1899,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             _scheduleCompartmentTime(
                                                 notificationId,
                                                 notificationTitle,
-                                                datePicked1);
+                                                datePicked3);
                                           }
 
                                           await compartments[2]
@@ -2504,7 +2504,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             _scheduleCompartmentTime(
                                                 notificationId,
                                                 notificationTitle,
-                                                datePicked1);
+                                                datePicked4);
                                           }
 
                                           await compartments[3]
@@ -3331,7 +3331,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                        textController5,
+                                                        textController6,
                                                         obscureText: false,
                                                         decoration:
                                                         InputDecoration(
@@ -3470,7 +3470,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked5 =
+                                                            datePicked6 =
                                                                 date);
                                                           },
                                                           currentTime:
@@ -3503,7 +3503,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                               12, 0, 0),
                                                           child: Text(
                                                             dateTimeFormat('Hm',
-                                                                datePicked5),
+                                                                datePicked6),
                                                             style:
                                                             FlutterFlowTheme
                                                                 .bodyText1,
@@ -3703,7 +3703,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                               name: valueOrDefault<String>(
                                                   textController6.text,
                                                   'Compartement 6'),
-                                              plannedDate: datePicked5,
+                                              plannedDate: datePicked6,
                                               pills: ListBuilder(
                                                   checkedPills));
 
@@ -3714,7 +3714,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             _scheduleCompartmentTime(
                                                 notificationId,
                                                 notificationTitle,
-                                                datePicked1);
+                                                datePicked6);
                                           }
 
                                           await compartments[5]
@@ -3936,7 +3936,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                        textController5,
+                                                        textController7,
                                                         obscureText: false,
                                                         decoration:
                                                         InputDecoration(
@@ -4306,20 +4306,20 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           final compartmentsUpdateData =
                                           createCompartmentsRecordData(
                                               name: valueOrDefault<String>(
-                                                  textController6.text,
+                                                  textController7.text,
                                                   'Compartement 7'),
-                                              plannedDate: datePicked5,
+                                              plannedDate: datePicked7,
                                               pills: ListBuilder(
                                                   checkedPills));
 
-                                          if (datePicked6 != null) {
+                                          if (datePicked7 != null) {
                                             var notificationId = 6;
                                             var notificationTitle =
                                                 "Open ${textController7.text.isEmpty ? "Compartement 7" : textController7.text} (box 7)";
                                             _scheduleCompartmentTime(
                                                 notificationId,
                                                 notificationTitle,
-                                                datePicked1);
+                                                datePicked7);
                                           }
 
                                           await compartments[6]
