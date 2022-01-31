@@ -9,6 +9,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 // import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import '../main.dart';
@@ -395,11 +396,17 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         List<PillsRecord> listViewPillsRecordList =
                             snapshot.data;
 
-                        listViewPillsRecordList.forEach((userPill) =>
+                        for (var index = 0;
+                            index < listViewPillsRecordList.length;
+                            index++) {
+                          if (!userPillsMap.asMap().containsKey(index)) {
+                            var userPill = listViewPillsRecordList[index];
                             userPillsMap.add({
                               userPill.reference: compartmentPillReferences
                                   .contains(userPill.reference)
-                            }));
+                            });
+                          }
+                        }
 
                         return ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
