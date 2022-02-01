@@ -540,6 +540,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
 
                               connection.output.add(Uint8List.fromList(
                                   utf8.encode(data + "\r\n"))); // Sending data
+                              connection.output.add(Uint8List.fromList(
+                                  utf8.encode("compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" + "\r\n")));
                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
                               connection.finish();
