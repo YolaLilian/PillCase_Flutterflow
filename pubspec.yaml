@@ -49,6 +49,8 @@ dependencies:
   url_launcher: 6.0.15
   flutter_local_notifications: ^9.2.0
   flutter_native_timezone: ^2.0.0
+  flutter_bluetooth_serial: ^0.3.2
+  permission_handler: ^8.3.0
 
 
   # The following adds the Cupertino Icons font to your application.

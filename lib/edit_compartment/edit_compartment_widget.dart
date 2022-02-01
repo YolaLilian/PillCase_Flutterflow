@@ -9,6 +9,10 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:permission_handler/permission_handler.dart';
 
 // import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -487,37 +491,85 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          var userPillMap = {};
-                          var checkedPills = [];
-
-                          userPillsMap.forEach((userPill) {
-                            userPillMap.addAll(userPill);
-                          });
-
-                          for (var map in userPillMap.entries) {
-                            if (map.value) {
-                              checkedPills.add(map.key);
-                            }
+                          var status = await Permission.bluetooth.status;
+                          if (status.isDenied) {
+                            status = await Permission.bluetooth.request();
                           }
 
-                          final compartmentsUpdateData =
-                              createCompartmentsRecordData(
-                                  name: textController.text,
-                                  plannedDate: datePicked,
-                                  pills: ListBuilder(checkedPills));
+                          if (status.isGranted) {
+                            try {
+                              String pillcaseAddress = "C8:C9:A3:CA:99:86";
 
-                          var notificationTitle =
-                              "Open ${textController.text} (box ${widget.name.index + 1})";
-                          _scheduleCompartmentTime(
-                              notificationTitle, datePicked);
-                          await widget.name.reference
-                              .update(compartmentsUpdateData);
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditedCompartmentWidget(),
-                            ),
-                          );
+                              var userPillMap = {};
+                              var checkedPills = [];
+
+                              userPillsMap.forEach((userPill) {
+                                userPillMap.addAll(userPill);
+                              });
+
+                              for (var userPillMap in userPillMap.entries) {
+                                if (userPillMap.value) {
+                                  checkedPills.add(userPillMap.key);
+                                }
+                              }
+
+                              final compartmentsUpdateData =
+                                  createCompartmentsRecordData(
+                                      name: textController.text,
+                                      plannedDate: datePicked,
+                                      pills: ListBuilder(checkedPills));
+
+                              var notificationTitle =
+                                  "Open ${textController.text} (box ${widget.name.index + 1})";
+
+
+                              String data = "";
+                              if (widget.name.plannedDate == null) {
+                                data =
+                                    "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                              } else if (widget.name.plannedDate != null) {
+                                data =
+                                    "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                              }
+                              FlutterBluetoothSerial.instance
+                                  .bondDeviceAtAddress(pillcaseAddress);
+
+                              BluetoothConnection connection =
+                                  await BluetoothConnection.toAddress(
+                                      pillcaseAddress);
+                              print('Connected to the pillcase');
+                              _scheduleCompartmentTime(
+                                  notificationTitle, datePicked);
+                              await widget.name.reference
+                                  .update(compartmentsUpdateData);
+
+                              connection.output.add(Uint8List.fromList(
+                                  utf8.encode(data + "\r\n"))); // Sending data
+                              connection.output.add(Uint8List.fromList(utf8.encode(
+                                  "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                      "\r\n")));
+                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                              connection.finish();
+                              print('Connection stopped.');
+
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditedCompartmentWidget(),
+                                ),
+                              );
+                            } catch (exception) {
+                              //do something?
+                              print('Cannot connect, exception occured');
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    "Geen connectie kunnen maken met de pillendoos"),
+                              ));
+                            }
+                          }
                         },
                         text: 'Bewerken',
                         options: FFButtonOptions(
