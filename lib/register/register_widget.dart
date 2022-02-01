@@ -486,65 +486,87 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     .doc()
                                     .set(compartmentsCreateData5);
 
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddMedicinLinkWidget(),
-                                    ),
-                                  );
-                                },
-                                text: 'Maak account aan',
-                                options: FFButtonOptions(
-                                  width: 130,
-                                  height: 40,
-                                  color: Color(0xFF00D43B),
-                                  textStyle: FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Roboto',
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: 12,
-                                ),
+                                  final compartmentsCreateData6 =
+                            createCompartmentsRecordData(
+                              name: 'Compartement 6',
+                              user: currentUserReference,
+                              pills: ListBuilder(),
+                              index: 5,
+                            );
+                            await CompartmentsRecord.collection
+                                .doc()
+                                .set(compartmentsCreateData6);
+
+                            final compartmentsCreateData7 =
+                            createCompartmentsRecordData(
+                              name: 'Compartement 7',
+                              user: currentUserReference,
+                              pills: ListBuilder(),
+                              index: 6,
+                            );
+                            await CompartmentsRecord.collection
+                                .doc()
+                                .set(compartmentsCreateData7);
+
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddMedicinLinkWidget(),
                               ),
+                            );
+                          },
+                          text: 'Maak account aan',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: Color(0xFF00D43B),
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Text(
-                                'Heb je al een account?',
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
-                              ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
                             ),
-                            InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginWidget(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Klik dan hier om in te loggen',
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFF54D6FF),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
+                            borderRadius: 12,
+                          ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Text(
+                          'Heb je al een account?',
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginWidget(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Klik dan hier om in te loggen',
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF54D6FF),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
                   ],
                 ),
             ),
