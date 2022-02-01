@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
 import '../auth/auth_util.dart';
 import '../components/reset_password_widget.dart';
 import '../edit_medicin_link/edit_medicin_link_widget.dart';
@@ -19,6 +24,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.tertiaryColor,
       body: SafeArea(
@@ -113,7 +119,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
                                   child: Container(
-                                    height: MediaQuery.of(context).size.height * 0.4,                                  
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
                                     child: ResetPasswordWidget(),
                                   ),
                                 );
@@ -173,6 +180,48 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 Icons.arrow_forward_ios,
                                 color: Colors.black,
                                 size: 24,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: FlutterFlowTheme.dark,
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(30, 30, 30, 30),
+                        child: InkWell(
+                          onTap: () async {
+                            String pillcaseAddress = "C8:C9:A3:CA:99:86";
+                            FlutterBluetoothSerial.instance
+                                .bondDeviceAtAddress(pillcaseAddress);
+
+                            BluetoothConnection connection =
+                                await BluetoothConnection.toAddress(
+                                    pillcaseAddress);
+                            print('Connected to the pillcase');
+
+
+                            connection.output.add(Uint8List.fromList(
+                                utf8.encode("compartment/operation/openall" +
+                                    "\r\n"))); // Sending data
+                            //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                            connection.finish();
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Open Alle Compartementen',
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           ),
