@@ -8,9 +8,14 @@ import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 // import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddCompartmentsWidget extends StatefulWidget {
   const AddCompartmentsWidget({Key key}) : super(key: key);
@@ -659,43 +664,89 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                              in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController1.text,
+                                                          'Compartement 1'),
+                                                      plannedDate: datePicked1,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/1/${datePicked1.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[0]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked1 != null) {
+                                                var notificationId = 0;
+                                                var notificationTitle =
+                                                    "Open ${textController1.text.isEmpty ? "Compartement 1" : textController1.text} (box 1)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked1);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                              createCompartmentsRecordData(
-                                                  name: valueOrDefault<String>(
-                                                      textController1.text,
-                                                      'Compartement 1'),
-                                                  plannedDate: datePicked1,
-                                                  pills: ListBuilder(
-                                                      checkedPills));
-
-                                          if (datePicked1 != null) {
-                                            var notificationId = 0;
-                                            var notificationTitle =
-                                                "Open ${textController1.text.isEmpty ? "Compartement 1" : textController1.text} (box 1)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked1);
-                                          }
-
-                                          await compartments[0]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -1264,43 +1315,89 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                              in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController2.text,
+                                                          'Compartement 2'),
+                                                      plannedDate: datePicked2,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/2/${datePicked2.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[1]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked2 != null) {
+                                                var notificationId = 1;
+                                                var notificationTitle =
+                                                    "Open ${textController2.text.isEmpty ? "Compartement 2" : textController2.text} (box 2)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked2);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                              createCompartmentsRecordData(
-                                                  name: valueOrDefault<String>(
-                                                      textController2.text,
-                                                      'Compartement 2'),
-                                                  plannedDate: datePicked2,
-                                                  pills: ListBuilder(
-                                                      checkedPills));
-
-                                          if (datePicked2 != null) {
-                                            var notificationId = 1;
-                                            var notificationTitle =
-                                                "Open ${textController2.text.isEmpty ? "Compartement 2" : textController2.text} (box 2)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked2);
-                                          }
-
-                                          await compartments[1]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -1869,43 +1966,89 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                              in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController3.text,
+                                                          'Compartement 3'),
+                                                      plannedDate: datePicked3,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/3/${datePicked3.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[2]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked3 != null) {
+                                                var notificationId = 2;
+                                                var notificationTitle =
+                                                    "Open ${textController3.text.isEmpty ? "Compartement 3" : textController3.text} (box 3)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked3);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                              createCompartmentsRecordData(
-                                                  name: valueOrDefault<String>(
-                                                      textController3.text,
-                                                      'Compartement 3'),
-                                                  plannedDate: datePicked3,
-                                                  pills: ListBuilder(
-                                                      checkedPills));
-
-                                          if (datePicked3 != null) {
-                                            var notificationId = 2;
-                                            var notificationTitle =
-                                                "Open ${textController3.text.isEmpty ? "Compartement 3" : textController3.text} (box 3)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked3);
-                                          }
-
-                                          await compartments[2]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -2474,43 +2617,89 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                              in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController4.text,
+                                                          'Compartement 4'),
+                                                      plannedDate: datePicked4,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/4/${datePicked4.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[3]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked4 != null) {
+                                                var notificationId = 3;
+                                                var notificationTitle =
+                                                    "Open ${textController4.text.isEmpty ? "Compartement 4" : textController4.text} (box 4)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked4);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                              createCompartmentsRecordData(
-                                                  name: valueOrDefault<String>(
-                                                      textController4.text,
-                                                      'Compartement 4'),
-                                                  plannedDate: datePicked4,
-                                                  pills: ListBuilder(
-                                                      checkedPills));
-
-                                          if (datePicked4 != null) {
-                                            var notificationId = 3;
-                                            var notificationTitle =
-                                                "Open ${textController4.text.isEmpty ? "Compartement 4" : textController4.text} (box 4)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked4);
-                                          }
-
-                                          await compartments[3]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
                                                 Duration(milliseconds: 300),
@@ -3079,46 +3268,94 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                              in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController5.text,
+                                                          'Compartement 5'),
+                                                      plannedDate: datePicked5,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/5/${datePicked5.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+
+                                              await compartments[4]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+
+                                              if (datePicked5 != null) {
+                                                var notificationId = 4;
+                                                var notificationTitle =
+                                                    "Open ${textController5.text.isEmpty ? "Compartement 5" : textController5.text} (box 5)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked5);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                              createCompartmentsRecordData(
-                                                  name: valueOrDefault<String>(
-                                                      textController5.text,
-                                                      'Compartement 5'),
-                                                  plannedDate: datePicked5,
-                                                  pills: ListBuilder(
-                                                      checkedPills));
-
-                                          if (datePicked5 != null) {
-                                            var notificationId = 4;
-                                            var notificationTitle =
-                                                "Open ${textController5.text.isEmpty ? "Compartement 5" : textController5.text} (box 5)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked5);
-                                          }
-
-                                          await compartments[4]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
-                                            Duration(milliseconds: 300),
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -3159,18 +3396,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[5].name,
@@ -3194,25 +3431,25 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -3220,18 +3457,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
                                                           textAlign:
-                                                          TextAlign.center,
+                                                              TextAlign.center,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -3254,53 +3491,53 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0, 0, 0, 5),
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
                                                           textAlign:
-                                                          TextAlign.start,
+                                                              TextAlign.start,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -3309,80 +3546,80 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 ),
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
                                                           color:
-                                                          FlutterFlowTheme
-                                                              .primaryColor,
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                        textController6,
+                                                            textController6,
                                                         obscureText: false,
                                                         decoration:
-                                                        InputDecoration(
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[5]
-                                                              .name,
+                                                              compartments[5]
+                                                                  .name,
                                                           hintStyle:
-                                                          FlutterFlowTheme
-                                                              .bodyText1,
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
-                                                            BorderSide(
+                                                                BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
+                                                                const BorderRadius
+                                                                    .only(
                                                               topLeft: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                               topRight: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
-                                                            BorderSide(
+                                                                BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
+                                                                const BorderRadius
+                                                                    .only(
                                                               topLeft: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                               topRight: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10,
-                                                              0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -3404,51 +3641,51 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0, 0, 0, 5),
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
                                                           textAlign:
-                                                          TextAlign.start,
+                                                              TextAlign.start,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -3457,9 +3694,9 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 ),
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
@@ -3467,46 +3704,46 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                             .showDateTimePicker(
                                                           context,
                                                           showTitleActions:
-                                                          true,
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked6 =
-                                                                date);
+                                                                datePicked6 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
                                                             color:
-                                                            FlutterFlowTheme
-                                                                .primaryColor,
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10,
-                                                              12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
                                                             dateTimeFormat('Hm',
                                                                 datePicked6),
                                                             style:
-                                                            FlutterFlowTheme
-                                                                .bodyText1,
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -3527,7 +3764,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
                                                   isEqualTo:
-                                                  currentUserReference),
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -3537,7 +3774,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 width: 50,
                                                 height: 50,
                                                 child:
-                                                CircularProgressIndicator(
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
@@ -3545,35 +3782,35 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             );
                                           }
                                           List<PillsRecord>
-                                          listViewPillsRecordList =
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
                                           if (listViewPillsRecordList.length >
                                               userPillsMap.length) {
                                             listViewPillsRecordList
                                                 .forEach((userPill) => {
-                                              userPillsMap.add({
-                                                userPill.reference:
-                                                false
-                                              })
-                                            });
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
                                             userPillsMap[index - 1][
-                                            listViewPillsRecordList[
-                                            index - 1]
-                                                .reference] = false;
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -3589,48 +3826,48 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
 
                                           return ListView.builder(
                                             physics:
-                                            const NeverScrollableScrollPhysics(),
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
                                             itemCount:
-                                            listViewPillsRecordList.length,
+                                                listViewPillsRecordList.length,
                                             itemBuilder:
                                                 (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[
-                                              listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment:
+                                                return Align(
+                                                  alignment:
                                                       AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity:
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
                                                         ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[
-                                                        listViewIndex][
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
                                                         listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[
-                                                            listViewIndex]
-                                                            [
-                                                            listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  });
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
@@ -3650,8 +3887,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                     .viewInsets,
                                                 child: Container(
                                                   height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -3684,46 +3921,92 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                          in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController6.text,
+                                                          'Compartement 6'),
+                                                      plannedDate: datePicked6,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/6/${datePicked6.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[5]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked6 != null) {
+                                                var notificationId = 5;
+                                                var notificationTitle =
+                                                    "Open ${textController6.text.isEmpty ? "Compartement 6" : textController6.text} (box 6)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked6);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController6.text,
-                                                  'Compartement 6'),
-                                              plannedDate: datePicked6,
-                                              pills: ListBuilder(
-                                                  checkedPills));
-
-                                          if (datePicked6 != null) {
-                                            var notificationId = 5;
-                                            var notificationTitle =
-                                                "Open ${textController6.text.isEmpty ? "Compartement 6" : textController6.text} (box 6)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked6);
-                                          }
-
-                                          await compartments[5]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await pageViewController.nextPage(
                                             duration:
-                                            Duration(milliseconds: 300),
+                                                Duration(milliseconds: 300),
                                             curve: Curves.ease,
                                           );
                                         },
@@ -3732,7 +4015,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: double.infinity,
                                           height: 40,
                                           color:
-                                          FlutterFlowTheme.secondaryColor,
+                                              FlutterFlowTheme.secondaryColor,
                                           textStyle: FlutterFlowTheme.subtitle2
                                               .override(
                                             fontFamily: 'Poppins',
@@ -3764,18 +4047,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   compartments[6].name,
@@ -3799,25 +4082,25 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 60,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
@@ -3825,18 +4108,18 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
+                                                            AlignmentDirectional(
+                                                                0, 0),
                                                         child: Text(
                                                           'Deze gegevens kunnen later aangepast worden',
                                                           textAlign:
-                                                          TextAlign.center,
+                                                              TextAlign.center,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .bodyText1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             color: Color(
                                                                 0xFF5F5F5F),
                                                           ),
@@ -3859,53 +4142,53 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0, 0, 0, 5),
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Naam compartement (optioneel)',
                                                           textAlign:
-                                                          TextAlign.start,
+                                                              TextAlign.start,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -3914,80 +4197,80 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 ),
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                          0.85,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.85,
                                                       height: 40,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                             .tertiaryColor,
                                                         border: Border.all(
                                                           color:
-                                                          FlutterFlowTheme
-                                                              .primaryColor,
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
                                                         ),
                                                       ),
                                                       child: TextFormField(
                                                         controller:
-                                                        textController7,
+                                                            textController7,
                                                         obscureText: false,
                                                         decoration:
-                                                        InputDecoration(
+                                                            InputDecoration(
                                                           hintText:
-                                                          compartments[6]
-                                                              .name,
+                                                              compartments[6]
+                                                                  .name,
                                                           hintStyle:
-                                                          FlutterFlowTheme
-                                                              .bodyText1,
+                                                              FlutterFlowTheme
+                                                                  .bodyText1,
                                                           enabledBorder:
-                                                          UnderlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
-                                                            BorderSide(
+                                                                BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
+                                                                const BorderRadius
+                                                                    .only(
                                                               topLeft: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                               topRight: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           focusedBorder:
-                                                          UnderlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
-                                                            BorderSide(
+                                                                BorderSide(
                                                               color: Color(
                                                                   0x00000000),
                                                               width: 1,
                                                             ),
                                                             borderRadius:
-                                                            const BorderRadius
-                                                                .only(
+                                                                const BorderRadius
+                                                                    .only(
                                                               topLeft: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                               topRight: Radius
                                                                   .circular(
-                                                                  4.0),
+                                                                      4.0),
                                                             ),
                                                           ),
                                                           contentPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10,
-                                                              0, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      0, 0, 0),
                                                         ),
                                                         style: FlutterFlowTheme
                                                             .bodyText1,
@@ -4009,51 +4292,51 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                30, 0, 30, 0),
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    30, 0, 30, 0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0, 0, 0, 5),
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 25,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                         ),
                                                         child: Text(
                                                           'Tijdstip van openen compartement',
                                                           textAlign:
-                                                          TextAlign.start,
+                                                              TextAlign.start,
                                                           style:
-                                                          FlutterFlowTheme
-                                                              .subtitle1
-                                                              .override(
+                                                              FlutterFlowTheme
+                                                                  .subtitle1
+                                                                  .override(
                                                             fontFamily:
-                                                            'Poppins',
+                                                                'Poppins',
                                                             fontSize: 16,
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -4062,9 +4345,9 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 ),
                                                 Row(
                                                   mainAxisSize:
-                                                  MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () async {
@@ -4072,46 +4355,46 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                             .showDateTimePicker(
                                                           context,
                                                           showTitleActions:
-                                                          true,
+                                                              true,
                                                           onConfirm: (date) {
                                                             setState(() =>
-                                                            datePicked7 =
-                                                                date);
+                                                                datePicked7 =
+                                                                    date);
                                                           },
                                                           currentTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                           minTime:
-                                                          getCurrentTimestamp,
+                                                              getCurrentTimestamp,
                                                         );
                                                       },
                                                       child: Container(
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.85,
                                                         height: 40,
                                                         decoration:
-                                                        BoxDecoration(
+                                                            BoxDecoration(
                                                           color: FlutterFlowTheme
                                                               .tertiaryColor,
                                                           border: Border.all(
                                                             color:
-                                                            FlutterFlowTheme
-                                                                .primaryColor,
+                                                                FlutterFlowTheme
+                                                                    .primaryColor,
                                                           ),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10,
-                                                              12, 0, 0),
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(10,
+                                                                      12, 0, 0),
                                                           child: Text(
                                                             dateTimeFormat('Hm',
                                                                 datePicked7),
                                                             style:
-                                                            FlutterFlowTheme
-                                                                .bodyText1,
+                                                                FlutterFlowTheme
+                                                                    .bodyText1,
                                                           ),
                                                         ),
                                                       ),
@@ -4132,7 +4415,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           queryBuilder: (pillsRecord) =>
                                               pillsRecord.where('user',
                                                   isEqualTo:
-                                                  currentUserReference),
+                                                      currentUserReference),
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -4142,7 +4425,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                 width: 50,
                                                 height: 50,
                                                 child:
-                                                CircularProgressIndicator(
+                                                    CircularProgressIndicator(
                                                   color: FlutterFlowTheme
                                                       .primaryColor,
                                                 ),
@@ -4150,35 +4433,35 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                             );
                                           }
                                           List<PillsRecord>
-                                          listViewPillsRecordList =
+                                              listViewPillsRecordList =
                                               snapshot.data;
 
                                           if (listViewPillsRecordList.length >
                                               userPillsMap.length) {
                                             listViewPillsRecordList
                                                 .forEach((userPill) => {
-                                              userPillsMap.add({
-                                                userPill.reference:
-                                                false
-                                              })
-                                            });
+                                                      userPillsMap.add({
+                                                        userPill.reference:
+                                                            false
+                                                      })
+                                                    });
                                           }
 
                                           for (var index =
-                                              listViewPillsRecordList
-                                                  .length;
-                                          index >= 1;
-                                          index--) {
+                                                  listViewPillsRecordList
+                                                      .length;
+                                              index >= 1;
+                                              index--) {
                                             userPillsMap[index - 1][
-                                            listViewPillsRecordList[
-                                            index - 1]
-                                                .reference] = false;
+                                                listViewPillsRecordList[
+                                                        index - 1]
+                                                    .reference] = false;
                                           }
 
                                           if (listViewPillsRecordList.isEmpty) {
                                             return Align(
                                               alignment:
-                                              AlignmentDirectional(0, 0),
+                                                  AlignmentDirectional(0, 0),
                                               child: Text(
                                                 'Geen pillen gevonden voor dit account...',
                                                 textAlign: TextAlign.center,
@@ -4194,48 +4477,48 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
 
                                           return ListView.builder(
                                             physics:
-                                            const NeverScrollableScrollPhysics(),
+                                                const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
                                             itemCount:
-                                            listViewPillsRecordList.length,
+                                                listViewPillsRecordList.length,
                                             itemBuilder:
                                                 (context, listViewIndex) {
                                               final listViewPillsRecord =
-                                              listViewPillsRecordList[
-                                              listViewIndex];
+                                                  listViewPillsRecordList[
+                                                      listViewIndex];
 
                                               return StatefulBuilder(
                                                   builder: (context, setState) {
-                                                    return Align(
-                                                      alignment:
+                                                return Align(
+                                                  alignment:
                                                       AlignmentDirectional(
                                                           0, 0),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity:
+                                                  child: CheckboxListTile(
+                                                    controlAffinity:
                                                         ListTileControlAffinity
                                                             .leading,
-                                                        title: Text(
-                                                            listViewPillsRecord
-                                                                .name),
-                                                        value: userPillsMap[
-                                                        listViewIndex][
+                                                    title: Text(
+                                                        listViewPillsRecord
+                                                            .name),
+                                                    value: userPillsMap[
+                                                            listViewIndex][
                                                         listViewPillsRecord
                                                             .reference],
-                                                        onChanged: (bool newValue) {
-                                                          setState(() {
-                                                            userPillsMap[
-                                                            listViewIndex]
-                                                            [
-                                                            listViewPillsRecord
-                                                                .reference] =
-                                                                newValue;
-                                                          });
-                                                        },
-                                                      ),
-                                                    );
-                                                  });
+                                                    onChanged: (bool newValue) {
+                                                      setState(() {
+                                                        userPillsMap[
+                                                                    listViewIndex]
+                                                                [
+                                                                listViewPillsRecord
+                                                                    .reference] =
+                                                            newValue;
+                                                      });
+                                                    },
+                                                  ),
+                                                );
+                                              });
                                             },
                                           );
                                         },
@@ -4255,8 +4538,8 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                     .viewInsets,
                                                 child: Container(
                                                   height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.4,
                                                   child: AddPillModalWidget(),
                                                 ),
@@ -4289,50 +4572,96 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           30, 0, 30, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var userPillMap = {};
-                                          var checkedPills = [];
+                                          var status =
+                                              await Permission.bluetooth.status;
 
-                                          userPillsMap.forEach((userPill) {
-                                            userPillMap.addAll(userPill);
-                                          });
+                                          if (status.isDenied) {
+                                            status = await Permission.bluetooth
+                                                .request();
+                                            print(status);
+                                          }
+                                          if (status.isGranted) {
+                                            try {
+                                              var userPillMap = {};
+                                              var checkedPills = [];
 
-                                          for (var userPillMap
-                                          in userPillMap.entries) {
-                                            if (userPillMap.value) {
-                                              checkedPills.add(userPillMap.key);
+                                              userPillsMap.forEach((userPill) {
+                                                userPillMap.addAll(userPill);
+                                              });
+
+                                              for (var userPillMap
+                                                  in userPillMap.entries) {
+                                                if (userPillMap.value) {
+                                                  checkedPills
+                                                      .add(userPillMap.key);
+                                                }
+                                              }
+
+                                              final compartmentsUpdateData =
+                                                  createCompartmentsRecordData(
+                                                      name: valueOrDefault<
+                                                              String>(
+                                                          textController7.text,
+                                                          'Compartement 7'),
+                                                      plannedDate: datePicked7,
+                                                      pills: ListBuilder(
+                                                          checkedPills));
+
+                                              String data =
+                                                  "/compartment/add/time/7/${datePicked7.toUtc().millisecondsSinceEpoch}";
+                                              String pillcaseAddress =
+                                                  "C8:C9:A3:CA:99:86";
+                                              //We should get this address from app settings
+                                              FlutterBluetoothSerial.instance
+                                                  .bondDeviceAtAddress(
+                                                      pillcaseAddress);
+
+                                              BluetoothConnection connection =
+                                                  await BluetoothConnection
+                                                      .toAddress(
+                                                          pillcaseAddress);
+                                              print(
+                                                  'Connected to the pillcase');
+                                              await compartments[6]
+                                                  .reference
+                                                  .update(
+                                                      compartmentsUpdateData);
+                                              if (datePicked7 != null) {
+                                                var notificationId = 6;
+                                                var notificationTitle =
+                                                    "Open ${textController7.text.isEmpty ? "Compartement 7" : textController7.text} (box 7)";
+                                                _scheduleCompartmentTime(
+                                                    notificationId,
+                                                    notificationTitle,
+                                                    datePicked7);
+                                              }
+
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(data +
+                                                      "\r\n"))); // Sending data
+                                              connection.output.add(Uint8List
+                                                  .fromList(utf8.encode(
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                          "\r\n")));
+                                              //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
+
+                                              connection.finish();
+                                              print('Connection stopped.');
+                                            } catch (exception) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Geen connectie kunnen maken met de pillendoos"),
+                                              ));
                                             }
                                           }
-
-                                          final compartmentsUpdateData =
-                                          createCompartmentsRecordData(
-                                              name: valueOrDefault<String>(
-                                                  textController7.text,
-                                                  'Compartement 7'),
-                                              plannedDate: datePicked7,
-                                              pills: ListBuilder(
-                                                  checkedPills));
-
-                                          if (datePicked7 != null) {
-                                            var notificationId = 6;
-                                            var notificationTitle =
-                                                "Open ${textController7.text.isEmpty ? "Compartement 7" : textController7.text} (box 7)";
-                                            _scheduleCompartmentTime(
-                                                notificationId,
-                                                notificationTitle,
-                                                datePicked7);
-                                          }
-
-                                          await compartments[6]
-                                              .reference
-                                              .update(compartmentsUpdateData);
-
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => NavBarPage(
                                                   initialPage: 'Homepage'),
                                             ),
-                                                (r) => false,
+                                            (r) => false,
                                           );
                                         },
                                         text: 'Opslaan',
@@ -4340,7 +4669,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                           width: double.infinity,
                                           height: 40,
                                           color:
-                                          FlutterFlowTheme.secondaryColor,
+                                              FlutterFlowTheme.secondaryColor,
                                           textStyle: FlutterFlowTheme.subtitle2
                                               .override(
                                             fontFamily: 'Poppins',
@@ -4360,7 +4689,6 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                 ),
                               ],
                             )
-
                           ],
                         );
                       }),
