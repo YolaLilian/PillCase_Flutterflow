@@ -700,7 +700,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/1/${datePicked1.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/1/${datePicked1.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -733,7 +733,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -1351,7 +1351,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/2/${datePicked2.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/2/${datePicked2.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -1384,7 +1384,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -2002,7 +2002,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/3/${datePicked3.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/3/${datePicked3.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -2035,7 +2035,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -2653,7 +2653,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/4/${datePicked4.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/4/${datePicked4.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -2686,7 +2686,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -3304,7 +3304,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/5/${datePicked5.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/5/${datePicked5.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -3339,7 +3339,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -3957,7 +3957,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/6/${datePicked6.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/6/${datePicked6.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -3990,7 +3990,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
@@ -4608,7 +4608,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                           checkedPills));
 
                                               String data =
-                                                  "/compartment/add/time/7/${datePicked7.toUtc().millisecondsSinceEpoch}";
+                                                  "/compartment/add/time/7/${datePicked7.toUtc().millisecondsSinceEpoch/1000}";
                                               String pillcaseAddress =
                                                   "C8:C9:A3:CA:99:86";
                                               //We should get this address from app settings
@@ -4641,7 +4641,7 @@ class _AddCompartmentsWidgetState extends State<AddCompartmentsWidget> {
                                                       "\r\n"))); // Sending data
                                               connection.output.add(Uint8List
                                                   .fromList(utf8.encode(
-                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                                      "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                                           "\r\n")));
                                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 

@@ -526,10 +526,10 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               String data = "";
                               if (widget.name.plannedDate == null) {
                                 data =
-                                    "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                                    "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}";
                               } else if (widget.name.plannedDate != null) {
                                 data =
-                                    "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch}";
+                                    "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}";
                               }
                               FlutterBluetoothSerial.instance
                                   .bondDeviceAtAddress(pillcaseAddress);
@@ -546,7 +546,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               connection.output.add(Uint8List.fromList(
                                   utf8.encode(data + "\r\n"))); // Sending data
                               connection.output.add(Uint8List.fromList(utf8.encode(
-                                  "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch}" +
+                                  "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                       "\r\n")));
                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
