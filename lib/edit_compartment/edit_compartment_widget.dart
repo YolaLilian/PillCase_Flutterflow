@@ -65,7 +65,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
         ),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
+        UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dateAndTime);
   }
 
@@ -110,7 +110,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                         Expanded(
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                            EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -135,7 +135,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
+                            EdgeInsetsDirectional.fromSTEB(30, 0, 30, 0),
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
@@ -171,7 +171,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                    MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -180,7 +180,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Naam compartement (optioneel)',
                                       textAlign: TextAlign.start,
                                       style:
-                                          FlutterFlowTheme.subtitle1.override(
+                                      FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -196,7 +196,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  MediaQuery.of(context).size.width * 0.8,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.tertiaryColor,
@@ -231,8 +231,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                         ),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              10, 0, 0, 0),
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
@@ -264,7 +264,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       0, 0, 0, 5),
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.8,
+                                    MediaQuery.of(context).size.width * 0.8,
                                     height: 25,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
@@ -273,7 +273,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                       'Tijdstip van openen compartement',
                                       textAlign: TextAlign.start,
                                       style:
-                                          FlutterFlowTheme.subtitle1.override(
+                                      FlutterFlowTheme.subtitle1.override(
                                         fontFamily: 'Poppins',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -289,7 +289,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               children: [
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
+                                  MediaQuery.of(context).size.width * 0.8,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.tertiaryColor,
@@ -339,8 +339,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                                         ),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              10, 0, 0, 0),
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
@@ -401,8 +401,8 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                             snapshot.data;
 
                         for (var index = 0;
-                            index < listViewPillsRecordList.length;
-                            index++) {
+                        index < listViewPillsRecordList.length;
+                        index++) {
                           if (!userPillsMap.asMap().containsKey(index)) {
                             var userPill = listViewPillsRecordList[index];
                             userPillsMap.add({
@@ -420,28 +420,28 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                           itemCount: listViewPillsRecordList.length,
                           itemBuilder: (context, listViewIndex) {
                             final listViewPillsRecord =
-                                listViewPillsRecordList[listViewIndex];
+                            listViewPillsRecordList[listViewIndex];
 
                             return StatefulBuilder(
                                 builder: (context, setState) {
-                              return Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: CheckboxListTile(
-                                  controlAffinity:
+                                  return Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: CheckboxListTile(
+                                      controlAffinity:
                                       ListTileControlAffinity.leading,
-                                  title: Text(listViewPillsRecord.name),
-                                  value: userPillsMap[listViewIndex]
+                                      title: Text(listViewPillsRecord.name),
+                                      value: userPillsMap[listViewIndex]
                                       [listViewPillsRecord.reference],
-                                  onChanged: (bool newValue) {
-                                    setState(() {
-                                      userPillsMap[listViewIndex]
-                                              [listViewPillsRecord.reference] =
-                                          newValue;
-                                    });
-                                  },
-                                ),
-                              );
-                            });
+                                      onChanged: (bool newValue) {
+                                        setState(() {
+                                          userPillsMap[listViewIndex]
+                                          [listViewPillsRecord.reference] =
+                                              newValue;
+                                        });
+                                      },
+                                    ),
+                                  );
+                                });
                           },
                         );
                       },
@@ -459,7 +459,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               padding: MediaQuery.of(context).viewInsets,
                               child: Container(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.4,
+                                MediaQuery.of(context).size.height * 0.4,
                                 child: AddPillModalWidget(),
                               ),
                             );
@@ -514,10 +514,10 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               }
 
                               final compartmentsUpdateData =
-                                  createCompartmentsRecordData(
-                                      name: textController.text,
-                                      plannedDate: datePicked,
-                                      pills: ListBuilder(checkedPills));
+                              createCompartmentsRecordData(
+                                  name: textController.text,
+                                  plannedDate: datePicked,
+                                  pills: ListBuilder(checkedPills));
 
                               var notificationTitle =
                                   "Open ${textController.text} (box ${widget.name.index + 1})";
@@ -526,17 +526,17 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               String data = "";
                               if (widget.name.plannedDate == null) {
                                 data =
-                                    "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}";
+                                "/compartment/add/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}:";
                               } else if (widget.name.plannedDate != null) {
                                 data =
-                                    "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}";
+                                "/compartment/update/time/${widget.name.index + 1}/${datePicked.toUtc().millisecondsSinceEpoch/1000}:";
                               }
                               FlutterBluetoothSerial.instance
                                   .bondDeviceAtAddress(pillcaseAddress);
 
                               BluetoothConnection connection =
-                                  await BluetoothConnection.toAddress(
-                                      pillcaseAddress);
+                              await BluetoothConnection.toAddress(
+                                  pillcaseAddress);
                               print('Connected to the pillcase');
                               _scheduleCompartmentTime(
                                   notificationTitle, datePicked);
@@ -546,7 +546,7 @@ class _EditCompartmentWidgetState extends State<EditCompartmentWidget> {
                               connection.output.add(Uint8List.fromList(
                                   utf8.encode(data + "\r\n"))); // Sending data
                               connection.output.add(Uint8List.fromList(utf8.encode(
-                                  "compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
+                                  "/compartment/operation/synctime/${DateTime.now().toUtc().millisecondsSinceEpoch/1000}" +
                                       "\r\n")));
                               //connection.output.add(Uint8List.fromList(utf8.encode(data2 + "\r\n"))); // Sending more data
 
